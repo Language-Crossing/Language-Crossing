@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://dme1u0cx78oj3"]
+
+[ext_resource type="Script" uid="uid://bgxwh2m1lovjo" path="res://assets/Menu/menu.gd" id="1_2e80r"]
+[ext_resource type="Texture2D" uid="uid://cvo66dub3dctp" path="res://assets/Menu/menu.jpg" id="2_tvf1n"]
+[ext_resource type="PackedScene" uid="uid://ceonlcu7mokjs" path="res://assets/Menu/TexturedButton/texture_button.tscn" id="3_x8qx4"]
+
+[node name="Node2D" type="Node2D" unique_id=1239497502]
+
+[node name="Control" type="Control" parent="." unique_id=594794110]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_2e80r")
+
+[node name="StartButton" parent="Control" unique_id=1282921049 instance=ExtResource("3_x8qx4")]
+z_index = 1
+layout_mode = 0
+offset_left = 458.0
+offset_top = 331.0
+offset_right = 751.0
+offset_bottom = 432.0
+button_text = "Start"
+
+[node name="OptionsButton" parent="Control" unique_id=1580220995 instance=ExtResource("3_x8qx4")]
+layout_mode = 0
+offset_left = 459.0
+offset_top = 450.0
+offset_right = 752.0
+offset_bottom = 551.0
+button_text = "Options"
+
+[node name="ExitButton" parent="Control" unique_id=959409596 instance=ExtResource("3_x8qx4")]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 566.0
+offset_right = 753.0
+offset_bottom = 667.0
+button_text = "Exit"
+
+[node name="MenuBackground" type="Sprite2D" parent="." unique_id=696098738]
+z_index = -2
+position = Vector2(652.50006, 359.99997)
+scale = Vector2(0.46129265, 0.47656247)
+texture = ExtResource("2_tvf1n")
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Control/StartButton" to="Control" method="_on_start_pressed"]
+[connection signal="pressed" from="Control/OptionsButton" to="Control" method="_on_options_button_pressed"]
+[connection signal="pressed" from="Control/ExitButton" to="Control" method="_on_exit_button_pressed"]
