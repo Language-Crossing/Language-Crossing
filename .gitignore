@@ -4,7 +4,6 @@
 
 # Exported builds
 *.translation
-export_presets.cfg
 
 # OS junk
 .DS_Store

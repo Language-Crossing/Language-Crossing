@@ -1,0 +1,345 @@
+{
+  "levelName": "Level 1: In The Library",
+  "levelId": 1,
+  "levelDescription": "Explore the library and learn fundamental Spanish greetings, introduce yourself, and help townspeople find their items.",
+  "NPCS": [
+    {
+      "name": "Sofia (Librarian)",
+      "dialouges": [
+        {
+          "id": 1,
+          "question": "Sofia: '¡Hola! Welcome to the library. Complete your introduction: \"¡Hola! [blank] Sam.\"'",
+          "dictionary": [
+            { "spanish": "Hola", "english": "Hello", "partOfSpeech": "interjection" },
+            { "spanish": "Me llamo", "english": "My name is", "partOfSpeech": "phrase" },
+            { "spanish": "Gracias", "english": "Thank you", "partOfSpeech": "interjection" },
+            { "spanish": "Adiós", "english": "Goodbye", "partOfSpeech": "interjection" }
+          ],
+          "options": [
+            {
+              "optionText": "Me llamo",
+              "blankFill": "Me llamo",
+              "response": "¡Mucho gusto! 'Me llamo' means 'My name is'.",
+              "isAnswer": true
+            },
+            {
+              "optionText": "Gracias",
+              "blankFill": "Gracias",
+              "response": "'Gracias' means 'Thank you'. To introduce yourself, use 'Me llamo'.",
+              "isAnswer": false
+            },
+            {
+              "optionText": "Adiós",
+              "blankFill": "Adiós",
+              "response": "'Adiós' means 'Goodbye'. To say your name, use 'Me llamo'.",
+              "isAnswer": false
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "question": "Sofia: 'In Spanish, a book is called \"el libro\". Can you find el [blank] for me?'",
+          "dictionary": [
+            { "spanish": "el", "english": "the (masculine)", "partOfSpeech": "article" },
+            { "spanish": "libro", "english": "book", "partOfSpeech": "noun" },
+            { "spanish": "reloj", "english": "clock", "partOfSpeech": "noun" },
+            { "spanish": "papel", "english": "paper", "partOfSpeech": "noun" }
+          ],
+          "options": [
+            {
+              "optionText": "libro",
+              "blankFill": "libro",
+              "response": "¡Perfecto! 'Libro' is the Spanish word for book.",
+              "isAnswer": true
+            },
+            {
+              "optionText": "reloj",
+              "blankFill": "reloj",
+              "response": "'Reloj' means clock, not book!",
+              "isAnswer": false
+            },
+            {
+              "optionText": "papel",
+              "blankFill": "papel",
+              "response": "'Papel' means paper, not book!",
+              "isAnswer": false
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "question": "Sofia: '¡Muchas gracias! How do you say \"You're welcome\" in Spanish?'",
+          "dictionary": [
+            { "spanish": "Muchas gracias", "english": "Thank you very much", "partOfSpeech": "phrase" },
+            { "spanish": "De nada", "english": "You're welcome", "partOfSpeech": "phrase" },
+            { "spanish": "Por favor", "english": "Please", "partOfSpeech": "phrase" }
+          ],
+          "options": [
+            {
+              "optionText": "De nada",
+              "blankFill": "De nada",
+              "response": "¡Excelente! 'De nada' means 'You're welcome'.",
+              "isAnswer": true
+            },
+            {
+              "optionText": "Por favor",
+              "blankFill": "Por favor",
+              "response": "'Por favor' means 'Please'. 'De nada' means 'You're welcome'.",
+              "isAnswer": false
+            },
+            {
+              "optionText": "Hola",
+              "blankFill": "Hola",
+              "response": "'Hola' means 'Hello'. To say 'You're welcome', use 'De nada'.",
+              "isAnswer": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mateo (Gardener)",
+      "dialouges": [
+        {
+          "id": 4,
+          "question": "Mateo: 'To say \"Good morning\" in Spanish, we say \"Buenos días\". Complete the greeting: \"[blank] días, Mateo!\"'",
+          "dictionary": [
+            { "spanish": "Buenos días", "english": "Good morning", "partOfSpeech": "phrase" },
+            { "spanish": "Buenos", "english": "Good (masculine plural)", "partOfSpeech": "adjective" },
+            { "spanish": "Buenas", "english": "Good (feminine plural)", "partOfSpeech": "adjective" },
+            { "spanish": "Mucho", "english": "Much / A lot", "partOfSpeech": "adjective" }
+          ],
+          "options": [
+            {
+              "optionText": "Buenos",
+              "blankFill": "Buenos",
+              "response": "¡Muy bien! 'Buenos días' is 'Good morning'.",
+              "isAnswer": true
+            },
+            {
+              "optionText": "Buenas",
+              "blankFill": "Buenas",
+              "response": "'Buenas' is used for afternoon (tardes) or night (noches). For morning, use 'Buenos'.",
+              "isAnswer": false
+            },
+            {
+              "optionText": "Mucho",
+              "blankFill": "Mucho",
+              "response": "'Mucho' means 'much' or 'a lot'. Use 'Buenos' for morning greetings.",
+              "isAnswer": false
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "question": "Mateo: 'I need something green for my garden! \"La planta\" means \"the plant\". Can you bring me la [blank]?'",
+          "dictionary": [
+            { "spanish": "la", "english": "the (feminine)", "partOfSpeech": "article" },
+            { "spanish": "planta", "english": "plant", "partOfSpeech": "noun" },
+            { "spanish": "mesa", "english": "table", "partOfSpeech": "noun" },
+            { "spanish": "caja", "english": "box", "partOfSpeech": "noun" }
+          ],
+          "options": [
+            {
+              "optionText": "planta",
+              "blankFill": "planta",
+              "response": "¡Correcto! 'Planta' means plant.",
+              "isAnswer": true
+            },
+            {
+              "optionText": "mesa",
+              "blankFill": "mesa",
+              "response": "'Mesa' means table, not plant!",
+              "isAnswer": false
+            },
+            {
+              "optionText": "caja",
+              "blankFill": "caja",
+              "response": "'Caja' means box, not plant!",
+              "isAnswer": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Elena (Carpenter)",
+      "dialouges": [
+        {
+          "id": 6,
+          "question": "Elena: 'In the afternoon, we greet people with \"Buenas tardes\". Complete your greeting: \"[blank] tardes, Elena!\"'",
+          "dictionary": [
+            { "spanish": "Buenas tardes", "english": "Good afternoon", "partOfSpeech": "phrase" },
+            { "spanish": "Buenas", "english": "Good (feminine plural)", "partOfSpeech": "adjective" },
+            { "spanish": "Buenos", "english": "Good (masculine plural)", "partOfSpeech": "adjective" },
+            { "spanish": "Hasta", "english": "Until", "partOfSpeech": "preposition" }
+          ],
+          "options": [
+            {
+              "optionText": "Buenas",
+              "blankFill": "Buenas",
+              "response": "¡Eso es! 'Buenas tardes' means 'Good afternoon'.",
+              "isAnswer": true
+            },
+            {
+              "optionText": "Buenos",
+              "blankFill": "Buenos",
+              "response": "'Buenos' pairs with 'días' (morning). For 'tardes' (afternoon), use 'Buenas'.",
+              "isAnswer": false
+            },
+            {
+              "optionText": "Hasta",
+              "blankFill": "Hasta",
+              "response": "'Hasta' is used in goodbyes like 'Hasta luego'. Use 'Buenas' for 'Buenas tardes'.",
+              "isAnswer": false
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "question": "Elena: 'I am crafting furniture! \"La silla\" means \"the chair\". Can you fetch la [blank] for my workshop?'",
+          "dictionary": [
+            { "spanish": "la", "english": "the (feminine)", "partOfSpeech": "article" },
+            { "spanish": "silla", "english": "chair", "partOfSpeech": "noun" },
+            { "spanish": "lámpara", "english": "lamp", "partOfSpeech": "noun" },
+            { "spanish": "alfombra", "english": "rug", "partOfSpeech": "noun" }
+          ],
+          "options": [
+            {
+              "optionText": "silla",
+              "blankFill": "silla",
+              "response": "¡Muy bien! 'Silla' means chair.",
+              "isAnswer": true
+            },
+            {
+              "optionText": "lámpara",
+              "blankFill": "lámpara",
+              "response": "'Lámpara' means lamp, not chair!",
+              "isAnswer": false
+            },
+            {
+              "optionText": "alfombra",
+              "blankFill": "alfombra",
+              "response": "'Alfombra' means rug, not chair!",
+              "isAnswer": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "ITEMS": {
+    "inventory": [
+      {
+        "itemId": 0,
+        "englishName": "Clock",
+        "spanishName": "Reloj",
+        "itemPath": "assets/images/clock.png"
+      },
+      {
+        "itemId": 1,
+        "englishName": "Plant",
+        "spanishName": "Planta",
+        "itemPath": "assets/images/plant.png"
+      },
+      {
+        "itemId": 2,
+        "englishName": "Book",
+        "spanishName": "Libro",
+        "itemPath": "assets/images/book.png"
+      },
+      {
+        "itemId": 3,
+        "englishName": "Rug",
+        "spanishName": "Alfombra",
+        "itemPath": "assets/images/rug.png"
+      },
+      {
+        "itemId": 4,
+        "englishName": "Lamp",
+        "spanishName": "Lámpara",
+        "itemPath": "assets/images/lamp.png"
+      },
+      {
+        "itemId": 5,
+        "englishName": "Table",
+        "spanishName": "Mesa",
+        "itemPath": "assets/images/table.png"
+      },
+      {
+        "itemId": 6,
+        "englishName": "Chair",
+        "spanishName": "Silla",
+        "itemPath": "assets/images/chair.png"
+      },
+      {
+        "itemId": 7,
+        "englishName": "Desk",
+        "spanishName": "Escritorio",
+        "itemPath": "assets/images/desk.png"
+      },
+      {
+        "itemId": 8,
+        "englishName": "Bookshelf",
+        "spanishName": "Estante",
+        "itemPath": "assets/images/bookshelf.png"
+      },
+      {
+        "itemId": 9,
+        "englishName": "Box",
+        "spanishName": "Caja",
+        "itemPath": "assets/images/box.png"
+      },
+      {
+        "itemId": 10,
+        "englishName": "Paper",
+        "spanishName": "Papel",
+        "itemPath": "assets/images/paper.png"
+      },
+      {
+        "itemId": 11,
+        "englishName": "Pen",
+        "spanishName": "Bolígrafo",
+        "itemPath": "assets/images/pen.png"
+      },
+      {
+        "itemId": 12,
+        "englishName": "Chest",
+        "spanishName": "Cofre",
+        "itemPath": "assets/images/chest.png"
+      }
+    ]
+  },
+  "TASKS": [
+    {
+      "taskId": 1,
+      "taskName": "Sofia's Reading Material",
+      "taskDescription": "Find and bring 'el libro' (the book) to Sofia the Librarian.",
+      "npcName": "Sofia (Librarian)",
+      "requiredItemId": 2,
+      "dialogueId": 2,
+      "isUnlocked": false,
+      "isCompleted": false
+    },
+    {
+      "taskId": 2,
+      "taskName": "Greenery for Mateo",
+      "taskDescription": "Find and bring 'la planta' (the plant) to Mateo the Gardener.",
+      "npcName": "Mateo (Gardener)",
+      "requiredItemId": 1,
+      "dialogueId": 5,
+      "isUnlocked": false,
+      "isCompleted": false
+    },
+    {
+      "taskId": 3,
+      "taskName": "Seating for Elena",
+      "taskDescription": "Find and bring 'la silla' (the chair) to Elena the Carpenter.",
+      "npcName": "Elena (Carpenter)",
+      "requiredItemId": 6,
+      "dialogueId": 7,
+      "isUnlocked": false,
+      "isCompleted": false
+    }
+  ]
+}

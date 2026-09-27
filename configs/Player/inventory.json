@@ -1,0 +1,17 @@
+{
+    "inventory": 
+        [
+            {
+                "itemId": 0,
+                "englishName": "Notebook",
+                "spanishName": "Cuaderno",
+                "itemPath": "assets/images/notebook.png"
+            },
+            {
+                "itemId": 1,
+                "englishName": "Chair",
+                "spanishName": "Silla",
+                "itemPath": "assets/images/chair.png"
+            }
+        ]
+}
