@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://ceonlcu7mokjs"]
+
+[ext_resource type="Script" uid="uid://dlm4psav2v4nd" path="res://texture_button.gd" id="1_65qbg"]
+[ext_resource type="FontFile" uid="uid://s86v44e0rflv" path="res://assets/Fonts/berkshireSwash/BerkshireSwash-Regular.ttf" id="2_3itey"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wbjo6"]
+font = ExtResource("2_3itey")
+font_size = 64
+
+[node name="TextureButton" type="TextureButton" unique_id=1282921049]
+offset_right = 1294.0
+offset_bottom = 722.0
+script = ExtResource("1_65qbg")
+
+[node name="Label" type="Label" parent="." unique_id=350684986]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+label_settings = SubResource("LabelSettings_wbjo6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1267870326]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.78015894, 0.1639997, 0.2565099, 1)
+metadata/_edit_use_anchors_ = true

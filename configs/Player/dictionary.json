@@ -1,0 +1,49 @@
+{
+ "dictionary": 
+    [ 
+        {
+            "spanishWord": "Hola",
+            "englishWord": "Hello"
+        }, 
+        {
+            "spanishWord": "Adiós",
+            "englishWord": "Goodbye"
+        }, 
+        {
+            "spanishWord": "Gracias",
+            "englishWord": "Thank you"
+        }, 
+        {
+            "spanishWord": "Por favor",
+            "englishWord": "Please"
+        },
+        {
+            "spanishWord": "Me",
+            "englishWord": "My"
+        },
+        {
+            "spanishWord": "Cómo",
+            "englishWord": "How"
+        },
+        {
+            "spanishWord": "Bien",
+            "englishWord": "Good"
+        },
+        {
+            "spanishWord": "Yo",
+            "englishWord": "I"
+        },
+        {
+            "spanishWord": "Soy",
+            "englishWord": "I am"
+        },
+        {
+            "spanishWord": "estar",
+            "englishWord": "to be"
+        },
+        {
+            "spanishWord": "llamar",
+            "englishWord": "to call"
+        }
+    ]
+}

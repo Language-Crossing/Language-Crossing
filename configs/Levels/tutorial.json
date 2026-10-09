@@ -1,0 +1,115 @@
+{
+    "levelName": "Tutorial",
+    "levelId": 0,
+    "levelDescription": "A brief tutorial to introduce the game and its features.",
+    "NPCS": [
+        {
+            "name": "Teacher",
+            "dialouges": [
+                {
+                    "question": "Hello! Welcome to Language Crossing. Are you ready to start learning some basic Spanish words?",
+                    "id": 1,
+                    "options": [
+                        {
+                            "optionText": "Yes, I'm ready!",
+                            "response": "Great! Let's start with some basic greetings.",
+                            "isAnswer": true
+                        },
+                        {
+                            "optionText": "No, I need more time.",
+                            "response": "No problem! Take your time and come back when you're ready.",
+                            "isAnswer": false
+                        }
+                    ],
+                    "dictionary": []
+                },
+                {
+                    "question": "Great! Welcome to language crossing. Let's take a look around and see what tools we have to help you learn Spanish.",
+                    "id": 2,
+                    "options": [
+                        {
+                            "optionText": "Sure, let's explore!",
+                            "response": "Awesome! Let's start with some basic greetings.",
+                            "isAnswer": true
+                        }
+                    ],
+                    "dictionary": []
+                },
+                {
+                    "question": "In this first level, you will learn some basic Spanish words and phrases. To help you learn, you can use the dictionary to look up words and phrases that you unlock throughout the game. You can access the dictionary at any time by clicking on the dictionary icon in the top right corner of the screen.",
+                    "id": 3,
+                    "options": [
+                        {
+                            "optionText": "Sounds good!",
+                            "response": "",
+                            "isAnswer": true
+                        }
+                    ],
+                    "dictionary": []
+                },
+                {
+                    "question": "In Spanish, we conjugate verbs based on the subject of the sentence. For example, the verb 'to be' is conjugated as 'soy' for 'I am', 'eres' for 'you are', and 'es' for 'he/she/it is'. You can access the present tense conjucation cheat sheet by clicking on the cheat sheet icon in the top right corner of the screen.",
+                    "id": 4,
+                    "options": [
+                        {
+                            "optionText": "Got it!",
+                            "response": "",
+                            "isAnswer": true
+                        }
+                    ]
+                },
+                {
+                    "question": "Throughout the game, you are free to explore the world and interact with the NPCs. You can click on the NPCs to start a conversation and learn new words and phrases. You can also click on objects in the world to pick them up and add them to your inventory. You can access your inventory at any time by clicking on the inventory icon in the top left corner of the screen.",
+                    "id": 5,
+                    "options": [
+                        {
+                            "optionText": "Thanks!",
+                            "response": "",
+                            "isAnswer": true
+                        }
+                    ]
+                },
+                {
+                    "question": "Sometimes, NPCS will ask you for items to help them with a task. You can give them the items they ask for by clicking on the NPC and selecting the item in your inventory. If you don't have the item they ask for, you can try to find it in the world or ask other NPCs if they have it.",
+                    "id": 6,
+                    "options": [
+                        {
+                            "optionText": "Got it!",
+                            "response": "",
+                            "isAnswer": true
+                        }
+                    ]
+                },
+                {
+                    "question": "You can collect Expereince Points (XP) by completing tasks and learning new words and phrases. The more accurate you are, the more XP you will earn. You can use your XP to level up and unlock new areas of the world to explore. You can see your XP and progress bar at the top of the screen.",
+                    "id": 7,
+                    "options": [
+                        {
+                            "optionText": "Understood!",
+                            "response": "",
+                            "isAnswer": true
+                        }
+                    ]
+                },
+                {
+                    "question": "Now that you are familiar with the basics, are you ready to start learning some Spanish words and phrases?",
+                    "id": 8,
+                    "options": [
+                        {
+                            "optionText": "Yes, let's start!",
+                            "response": "Great! Let's start with some basic greetings.",
+                            "isAnswer": true
+                        },
+                        {
+                            "optionText": "No, I need more time.",
+                            "response": "No problem! Take your time and come back when you're ready.",
+                            "isAnswer": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "ITEMS": [],
+    "TASKS": []
+}
