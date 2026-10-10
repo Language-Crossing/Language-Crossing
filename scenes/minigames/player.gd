@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var tool_sprite = $ToolAnimatedSprite2D
 
+const SPEED := 100.0
 
 enum FishingState {
 	IDLE,
@@ -14,10 +15,31 @@ enum FishingState {
 	FAILED
 }
 
-
 var fishing_state = FishingState.IDLE
 var can_fish := false
 
+func _physics_process(_delta: float) -> void:
+	if fishing_state != FishingState.IDLE:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+
+	var direction := Input.get_vector(
+	"ui_left",
+	"ui_right",
+	"ui_up",
+	"ui_down"
+	)
+
+	velocity = direction * SPEED
+	
+	if direction != Vector2.ZERO:
+		animated_sprite_2d.play("walking")
+		animated_sprite_2d.flip_h = direction.x < 0
+	else:
+		animated_sprite_2d.play("idle")
+	
+	move_and_slide()
 
 func _process(_delta):
 	if Input.is_action_just_pressed("interact"):

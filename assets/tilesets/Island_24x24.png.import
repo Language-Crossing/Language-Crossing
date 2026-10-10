@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chojsta02rnc6"
-path="res://.godot/imported/base_idle_strip9.png-b3344b1062316260577443f9a6b9838b.ctex"
+uid="uid://dqusqhjdu6rt0"
+path="res://.godot/imported/Island_24x24.png-ee5e18743ceee3073b0f384c05646145.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/base_idle_strip9.png"
-dest_files=["res://.godot/imported/base_idle_strip9.png-b3344b1062316260577443f9a6b9838b.ctex"]
+source_file="res://assets/tilesets/Island_24x24.png"
+dest_files=["res://.godot/imported/Island_24x24.png-ee5e18743ceee3073b0f384c05646145.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3wgtaq4t075x"
-path="res://.godot/imported/base_casting_strip15.png-e128492288d0fb5c4b0c905d632bfc5e.ctex"
+uid="uid://chojsta02rnc6"
+path="res://.godot/imported/base_idle_strip9.png-a0f68016a5e3f697e5a76d36880eb7e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/base_casting_strip15.png"
-dest_files=["res://.godot/imported/base_casting_strip15.png-e128492288d0fb5c4b0c905d632bfc5e.ctex"]
+source_file="res://assets/tilesets/character/base_idle_strip9.png"
+dest_files=["res://.godot/imported/base_idle_strip9.png-a0f68016a5e3f697e5a76d36880eb7e5.ctex"]
 
 [params]
 

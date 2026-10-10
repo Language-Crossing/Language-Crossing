@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bro6o7osgqh24"
-path="res://.godot/imported/base_reeling_strip13.png-0c111ba99a09c5c60ec3269d4bd9b343.ctex"
+uid="uid://b73g15h6yvx1a"
+path="res://.godot/imported/base_walk_strip8.png-238308c58a625a0a61e88510beacfd5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/base_reeling_strip13.png"
-dest_files=["res://.godot/imported/base_reeling_strip13.png-0c111ba99a09c5c60ec3269d4bd9b343.ctex"]
+source_file="res://assets/tilesets/character/base_walk_strip8.png"
+dest_files=["res://.godot/imported/base_walk_strip8.png-238308c58a625a0a61e88510beacfd5e.ctex"]
 
 [params]
 
