@@ -255,17 +255,21 @@ position = Vector2(442.5, 111.5)
 scale = Vector2(2, 2)
 
 [node name="FishingSpot1" parent="." unique_id=1688823409 instance=ExtResource("3_f131e")]
+unique_name_in_owner = true
 position = Vector2(462, 175.5)
 
 [node name="FishingSpot2" parent="." unique_id=1634105844 instance=ExtResource("3_f131e")]
+unique_name_in_owner = true
 position = Vector2(160.5, 176.5)
 
 [node name="FishingSpot3" parent="." unique_id=1615829257 instance=ExtResource("3_f131e")]
+unique_name_in_owner = true
 position = Vector2(310.5, 90)
 rotation = 1.5707964
 scale = Vector2(1, 1.45)
 
 [node name="FishingSpot4" parent="." unique_id=64016901 instance=ExtResource("3_f131e")]
+unique_name_in_owner = true
 position = Vector2(311.5, 257)
 rotation = 1.5707964
 scale = Vector2(1, 1.45)

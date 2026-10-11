@@ -313,7 +313,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b88wv")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"caught",
 "speed": 8.0
 }, {
@@ -658,7 +658,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_htija")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"caught",
 "speed": 8.0
 }, {
@@ -724,12 +724,16 @@ script = ExtResource("1_dw050")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=283336682]
 sprite_frames = SubResource("SpriteFrames_wvhok")
-animation = &"reeling"
+animation = &"caught"
+frame = 9
+frame_progress = 1.0
 
 [node name="Tool2D" type="AnimatedSprite2D" parent="." unique_id=515746925]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_f2kpx")
-animation = &"reeling"
+animation = &"caught"
+frame = 9
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=486992471]
 shape = SubResource("RectangleShape2D_wvhok")

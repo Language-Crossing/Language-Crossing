@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="LanguageCrossing"
-run/main_scene="uid://dme1u0cx78oj3"
+run/main_scene="uid://cwfvk61kahsxx"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
