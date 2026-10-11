@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
-@onready var tool_sprite = $ToolAnimatedSprite2D
+@onready var tool_sprite = $Tool2D
 
 const SPEED := 100.0
 
@@ -17,6 +17,7 @@ enum FishingState {
 
 var fishing_state = FishingState.IDLE
 var can_fish := false
+var facing_direction := Vector2.DOWN
 
 func _physics_process(_delta: float) -> void:
 	if fishing_state != FishingState.IDLE:
@@ -34,10 +35,14 @@ func _physics_process(_delta: float) -> void:
 	velocity = direction * SPEED
 	
 	if direction != Vector2.ZERO:
+		facing_direction = direction
+		
 		animated_sprite_2d.play("walking")
 		animated_sprite_2d.flip_h = direction.x < 0
 	else:
 		animated_sprite_2d.play("idle")
+		
+	tool_sprite.visible = false
 	
 	move_and_slide()
 
@@ -55,9 +60,20 @@ func _process(_delta):
 		if Input.is_action_just_released("interact"):
 			catch_fish()
 
+func update_tool_direction() -> void:
+	if facing_direction == Vector2.UP:
+		tool_sprite.rotation_degrees = -90
+	elif facing_direction == Vector2.DOWN:
+		tool_sprite.rotation_degrees = 90
+	elif facing_direction.x < 0:
+		tool_sprite.rotation_degrees = 180
+	else:
+		tool_sprite.rotation_degrees = 0
 
 func start_fishing():
 	fishing_state = FishingState.CASTING
+	tool_sprite.visible = true
+	update_tool_direction()
 
 	velocity = Vector2.ZERO
 
