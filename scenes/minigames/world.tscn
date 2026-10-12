@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dqusqhjdu6rt0" path="res://assets/tilesets/Island_24x24.png" id="1_uyqam"]
 [ext_resource type="PackedScene" uid="uid://dkaego0u0vhsi" path="res://scenes/minigames/player.tscn" id="2_yuodq"]
 [ext_resource type="PackedScene" uid="uid://bhyhxg0hp5vdo" path="res://scenes/minigames/fishing_spot.tscn" id="3_f131e"]
+[ext_resource type="PackedScene" uid="uid://b27g0kth52ijp" path="res://scenes/minigames/fishing_game.tscn" id="4_e1u82"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uyqam"]
 texture = ExtResource("1_uyqam")
@@ -235,6 +236,15 @@ sources/0 = SubResource("TileSetAtlasSource_f131e")
 
 [node name="WorldRoot" type="Node2D" unique_id=1108991546]
 scale = Vector2(2, 2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=696191430]
+
+[node name="FishingGame" parent="CanvasLayer" unique_id=1271136407 instance=ExtResource("4_e1u82")]
+offset_left = 782.0
+offset_top = 141.0
+offset_right = 618.0
+offset_bottom = -398.0
+scale = Vector2(0.2, 0.2)
 
 [node name="layer-holder" type="Node2D" parent="." unique_id=1136292245]
 

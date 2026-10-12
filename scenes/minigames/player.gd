@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var tool_sprite = $Tool2D
+@onready var fishing_minigame = \
+	get_node("/root/WorldRoot/CanvasLayer/FishingGame")
 
 const SPEED := 100.0
 
@@ -59,10 +61,11 @@ func _process(_delta):
 
 		elif fishing_state == FishingState.BITE:
 			start_reeling()
+			
 
-	elif fishing_state == FishingState.REELING:
-		if Input.is_action_just_released("interact"):
-			catch_fish()
+func position_fishing_minigame() -> void:
+	var screen_position = get_global_transform_with_canvas().origin
+	fishing_minigame.global_position = screen_position + Vector2(-150, -70)
 
 func update_tool_direction() -> void:
 	if current_fishing_spot == null:
@@ -132,11 +135,17 @@ func start_reeling():
 
 	animated_sprite_2d.play("reeling")
 	tool_sprite.play("reeling")
+	
+	position_fishing_minigame()
 
-	print("REELING!")
+	fishing_minigame.start_minigame()
 
+func _ready():
+	fishing_minigame.fish_caught.connect(catch_fish)
+	fishing_minigame.fish_missed.connect(fail_fishing)
 
 func catch_fish():
+	fishing_minigame.close_minigame()
 	fishing_state = FishingState.CAUGHT
 
 	animated_sprite_2d.play("caught")
@@ -158,6 +167,7 @@ func fail_fishing():
 
 
 func end_fishing():
+	fishing_minigame.close_minigame()
 	fishing_state = FishingState.IDLE
 
 	animated_sprite_2d.play("idle")
