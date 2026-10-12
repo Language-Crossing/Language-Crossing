@@ -4,8 +4,9 @@
 	"levelDescription": "A brief tutorial to introduce the game and its features.",
 	"NPCS": [
 		{
+			"npcId": "teacher",
 			"name": "Teacher",
-			"dialouges": [
+			"dialogues": [
 				{
 					"question": "Hello! Welcome to Language Crossing. Are you ready to start learning some basic Spanish words?",
 					"id": 1,

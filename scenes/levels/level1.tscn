@@ -14,6 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://f5x8rff8agve" path="res://assets/Characters/The Female Adventurer - Free/Walk/walk_Right_Down.png" id="12_6gwlt"]
 [ext_resource type="Texture2D" uid="uid://c0kt8v2ebskag" path="res://assets/Characters/The Female Adventurer - Free/Walk/walk_Right_Up.png" id="13_c2nc4"]
 [ext_resource type="Texture2D" uid="uid://t6ebv2b5m4fw" path="res://assets/Characters/The Female Adventurer - Free/Walk/walk_Up.png" id="14_vhxpm"]
+[ext_resource type="Texture2D" uid="uid://b3v0cnn22otna" path="res://assets/Characters/Characters.png" id="15_ps2vj"]
+[ext_resource type="Script" uid="uid://bhlf3tc7aqghg" path="res://scripts/level.gd" id="16_level"]
+[ext_resource type="Script" uid="uid://c1ccccx5mefge" path="res://scripts/interactable_npc.gd" id="17_npc"]
+[ext_resource type="PackedScene" uid="uid://bpsnrnitln3mh" path="res://scenes/ui/dialogue_ui.tscn" id="18_dialogue_ui"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4tcl0"]
 texture = ExtResource("1_x6ivy")
@@ -1392,8 +1396,12 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jprdt"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_71t1r"]
+radius = 8.69226
+
 [node name="LevelRoot" type="Node2D" unique_id=1221234548]
 scale = Vector2(2, 2)
+script = ExtResource("16_level")
 
 [node name="layer-holder" type="Node2D" parent="." unique_id=2116506981]
 
@@ -1433,3 +1441,22 @@ animation = &"walk_left_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=413311701]
 shape = SubResource("CapsuleShape2D_jprdt")
+
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="." unique_id=1455081084]
+position = Vector2(478, 172.5)
+script = ExtResource("17_npc")
+npc_id = &"teacher"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2" unique_id=143513675]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_71t1r")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D2" unique_id=20730230]
+z_index = 1
+scale = Vector2(1.5847231, 1.8621118)
+texture = ExtResource("15_ps2vj")
+region_enabled = true
+region_rect = Rect2(239.66225, 239.28001, 16.337753, 16.719986)
+
+[node name="DialogueUI" parent="." unique_id=940229574 instance=ExtResource("18_dialogue_ui")]

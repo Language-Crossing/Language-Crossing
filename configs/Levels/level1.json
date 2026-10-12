@@ -4,8 +4,9 @@
   "levelDescription": "Explore the library and learn fundamental Spanish greetings, introduce yourself, and help townspeople find their items.",
   "NPCS": [
     {
+      "npcId": "sofia",
       "name": "Sofia (Librarian)",
-      "dialouges": [
+      "dialogues": [
         {
           "id": 1,
           "question": "Sofia: '¡Hola! Welcome to the library. Complete your introduction: \"¡Hola! [blank] Sam.\"'",
@@ -98,8 +99,9 @@
       ]
     },
     {
+      "npcId": "mateo",
       "name": "Mateo (Gardener)",
-      "dialouges": [
+      "dialogues": [
         {
           "id": 4,
           "question": "Mateo: 'To say \"Good morning\" in Spanish, we say \"Buenos días\". Complete the greeting: \"[blank] días, Mateo!\"'",
@@ -163,8 +165,9 @@
       ]
     },
     {
+      "npcId": "elena",
       "name": "Elena (Carpenter)",
-      "dialouges": [
+      "dialogues": [
         {
           "id": 6,
           "question": "Elena: 'In the afternoon, we greet people with \"Buenas tardes\". Complete your greeting: \"[blank] tardes, Elena!\"'",

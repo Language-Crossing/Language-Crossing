@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpsnrnitln3mh"]
+
+[ext_resource type="Script" path="res://scripts/dialogue_ui.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/UI/pixel-ui-free-1.0.2/addons/pixel_ui/themes/wood.tres" id="2_theme"]
+
+[node name="DialogueUI" type="CanvasLayer" unique_id=840615455]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_filter = 1
+theme = ExtResource("2_theme")
+visible = false
+
+[node name="BottomLayout" type="VBoxContainer" parent="Root"]
+layout_mode = 0
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -350.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="DialoguePanel" type="PanelContainer" parent="Root/BottomLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 108)
+
+[node name="DialogueContent" type="VBoxContainer" parent="Root/BottomLayout/DialoguePanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="SpeakerName" type="Label" parent="Root/BottomLayout/DialoguePanel/DialogueContent"]
+layout_mode = 2
+theme_type_variation = &"Title"
+text = ""
+
+[node name="DialogueText" type="Label" parent="Root/BottomLayout/DialoguePanel/DialogueContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 3
+text = ""
+
+[node name="Options" type="GridContainer" parent="Root/BottomLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 6
+
+[node name="CloseButton" type="Button" parent="Root/BottomLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 40)
+text = "Close"

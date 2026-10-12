@@ -1,63 +1,59 @@
-@export var player_name = "Player One"
-@export var levelId = 1
-@export var progress = 0
-@export var XP = 0
-@export var dictionary = {}
-@export var inventory = {}
+class_name ConfigHelpers
+extends RefCounted
 
-const SAVE_DIR = "user://saves/"
-const PLAYER_PATH = SAVE_DIR + "player.json"
-const DICTIONARY_PATH = SAVE_DIR + "dictionary.json"
-const INVENTORY_PATH = SAVE_DIR + "inventory.json"
+const CONFIG_ROOT := "res://configs"
+const SAVE_ROOT := "user://saves"
 
-# --- Saving ---
 
-func get_player_data() -> Dictionary:
-	return {
-		"name": player_name,
-		"levelId": levelId,
-		"progress": progress,
-		"XP": XP
-	}
+static func read_config(relative_path: String, fallback: Variant = null) -> Variant:
+	var path := CONFIG_ROOT.path_join(relative_path)
+	if not FileAccess.file_exists(path):
+		push_error("Config file does not exist: %s" % path)
+		return _copy_fallback(fallback)
+	return read_json(path, fallback)
 
-func save_game():
-	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
-	_write_json(PLAYER_PATH, get_player_data())
-	_write_json(DICTIONARY_PATH, dictionary)
-	_write_json(INVENTORY_PATH, inventory)
 
-func _write_json(path: String, data: Variant) -> void:
-	var file = FileAccess.open(path, FileAccess.WRITE)
+static func read_save(file_name: String, fallback: Variant = null) -> Variant:
+	return read_json(SAVE_ROOT.path_join(file_name), fallback)
+
+
+static func read_json(path: String, fallback: Variant = null) -> Variant:
+	if not FileAccess.file_exists(path):
+		return _copy_fallback(fallback)
+
+	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		push_error("Could not open %s: %s" % [path, error_string(FileAccess.get_open_error())])
-		return
+		push_error("Could not read %s: %s" % [path, error_string(FileAccess.get_open_error())])
+		return _copy_fallback(fallback)
+
+	var parser := JSON.new()
+	var parse_error := parser.parse(file.get_as_text())
+	file.close()
+	if parse_error != OK:
+		push_error("Invalid JSON in %s at line %d: %s" % [path, parser.get_error_line(), parser.get_error_message()])
+		return _copy_fallback(fallback)
+	return parser.data
+
+
+static func write_save(file_name: String, data: Variant) -> bool:
+	var absolute_save_root := ProjectSettings.globalize_path(SAVE_ROOT)
+	var directory_error := DirAccess.make_dir_recursive_absolute(absolute_save_root)
+	if directory_error != OK and not DirAccess.dir_exists_absolute(absolute_save_root):
+		push_error("Could not create save directory: %s" % error_string(directory_error))
+		return false
+
+	var path := SAVE_ROOT.path_join(file_name)
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file == null:
+		push_error("Could not write %s: %s" % [path, error_string(FileAccess.get_open_error())])
+		return false
+
 	file.store_string(JSON.stringify(data, "\t"))
 	file.close()
+	return true
 
-# --- Loading ---
 
-func load_game():
-	var player_data = _read_json(PLAYER_PATH)
-	if player_data is Dictionary:
-		player_name = player_data.get("name", player_name)
-		levelId = player_data.get("levelId", levelId)
-		progress = player_data.get("progress", progress)
-		XP = player_data.get("XP", XP)
-
-	var dict_data = _read_json(DICTIONARY_PATH)
-	if dict_data is Dictionary:
-		dictionary = dict_data
-
-	var inv_data = _read_json(INVENTORY_PATH)
-	if inv_data is Dictionary:
-		inventory = inv_data
-
-func _read_json(path: String) -> Variant:
-	if not FileAccess.file_exists(path):
-		return null
-	var file = FileAccess.open(path, FileAccess.READ)
-	var parsed = JSON.parse_string(file.get_as_text())
-	file.close()
-	return parsed
-	
-	
+static func _copy_fallback(value: Variant) -> Variant:
+	if value is Dictionary or value is Array:
+		return value.duplicate(true)
+	return value
