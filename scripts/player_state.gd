@@ -18,6 +18,11 @@ func _ready() -> void:
 	load_game()
 
 
+func _unhandled_key_input(event: InputEvent) -> void:
+	if OS.is_debug_build() and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F8:
+		reset_progress(true)
+
+
 func load_game() -> void:
 	var default_player: Variant = ConfigHelpers.read_config("Player/player.json", {})
 	var default_dictionary: Variant = ConfigHelpers.read_config("Player/dictionary.json", {"dictionary": []})
@@ -51,6 +56,31 @@ func load_game() -> void:
 	dictionary = _dictionary_or_fallback(dictionary_data, default_dictionary)
 	inventory = _dictionary_or_fallback(inventory_data, default_inventory)
 	state_loaded.emit()
+
+
+func reset_progress(restart_current_scene: bool = false) -> bool:
+	var default_player: Variant = ConfigHelpers.read_config("Player/player.json", {})
+	if not default_player is Dictionary:
+		push_error("Player defaults must contain a JSON object")
+		return false
+
+	var default_dictionary: Variant = ConfigHelpers.read_config("Player/dictionary.json", {"dictionary": []})
+	var default_inventory: Variant = ConfigHelpers.read_config("Player/inventory.json", {"inventory": []})
+	player_name = str(default_player.get("name", "Player 1"))
+	level_id = int(default_player.get("levelId", 1))
+	progress = int(default_player.get("progress", 0))
+	xp = int(default_player.get("XP", 0))
+	dialogue_progress.clear()
+	dictionary = _dictionary_or_fallback(default_dictionary, {"dictionary": []})
+	inventory = _dictionary_or_fallback(default_inventory, {"inventory": []})
+
+	if not save_game():
+		return false
+	state_loaded.emit()
+	print("Player progress reset to config defaults.")
+	if restart_current_scene:
+		get_tree().reload_current_scene()
+	return true
 
 
 func save_game() -> bool:

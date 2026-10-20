@@ -27,7 +27,6 @@ func _ready() -> void:
 	if level_controller == null:
 		push_error("Dialogue UI could not find its level controller")
 		return
-
 	_connect_controller_signal("dialogue_started", _on_dialogue_started)
 	_connect_controller_signal("dialogue_choice_resolved", _on_dialogue_choice_resolved)
 	_connect_controller_signal("dialogue_closed", _on_dialogue_closed)
@@ -45,6 +44,7 @@ func _on_dialogue_started(context: Dictionary) -> void:
 	ui_root.show()
 	pending_result.clear()
 	speaker_name.text = str(context.get("npcName", ""))
+	_log_dialogue_ui("Showing conversation with %s" % speaker_name.text)
 	if bool(context.get("completed", false)):
 		current_dialogue.clear()
 		dialogue_text.text = "You have completed this conversation."
@@ -64,12 +64,18 @@ func _show_dialogue(dialogue: Dictionary) -> void:
 	var choices: Variant = current_dialogue.get("options", [])
 	if not choices is Array:
 		return
-	for index in range(choices.size()):
-		var choice: Variant = choices[index]
-		if not choice is Dictionary:
+
+	var valid_choices: Array[Dictionary] = []
+	for choice in choices:
+		if not choice is Dictionary or str(choice.get("optionText", "")).strip_edges().is_empty():
 			continue
+		valid_choices.append(choice)
+
+	options_container.columns = mini(2, maxi(1, valid_choices.size()))
+	for index in range(valid_choices.size()):
+		var choice: Dictionary = valid_choices[index]
 		var button := Button.new()
-		button.text = str(choice.get("optionText", "Continue"))
+		button.text = str(choice.get("optionText", ""))
 		button.custom_minimum_size = option_button_size
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.add_theme_font_size_override("font_size", option_font_size)
@@ -84,7 +90,15 @@ func _on_choice_pressed(option_index: int) -> void:
 
 func _on_dialogue_choice_resolved(result: Dictionary) -> void:
 	pending_result = result.duplicate(true)
-	dialogue_text.text = str(result.get("response", ""))
+	var response := str(result.get("response", "")).strip_edges()
+	_log_dialogue_ui("Showing answer feedback (correct: %s, completed: %s)" % [result.get("isCorrect", false), result.get("completed", false)])
+
+	if response.is_empty():
+		_clear_options()
+		_continue_dialogue()
+		return
+
+	dialogue_text.text = response
 	_clear_options()
 	_add_action_button("Continue", _continue_dialogue)
 
@@ -104,6 +118,7 @@ func _continue_dialogue() -> void:
 
 
 func _add_action_button(button_text: String, handler: Callable) -> void:
+	options_container.columns = 1
 	var button := Button.new()
 	button.text = button_text
 	button.custom_minimum_size = option_button_size
@@ -127,6 +142,12 @@ func _close_dialogue() -> void:
 
 
 func _on_dialogue_closed() -> void:
+	_log_dialogue_ui("Hiding dialogue panel")
 	ui_root.hide()
 	current_dialogue.clear()
 	pending_result.clear()
+
+
+func _log_dialogue_ui(message: String) -> void:
+	if OS.is_debug_build():
+		print("[Dialogue UI] %s" % message)
