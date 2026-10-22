@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c024jy4ftdqov"]
+
+[ext_resource type="PackedScene" uid="uid://d1oe4ug5jdu25" path="res://scenes/characters/character.tscn" id="1_76oj4"]
+[ext_resource type="Script" uid="uid://b1lnekb78ygdx" path="res://scenes/characters/player.gd" id="2_dyp2m"]
+[ext_resource type="Texture2D" uid="uid://bwx6lio0v5glo" path="res://assets/characterTextures/basicMovement/body/white.png" id="3_atpat"]
+
+[node name="Player" unique_id=1329473978 instance=ExtResource("1_76oj4")]
+script = ExtResource("2_dyp2m")
+outfit_type = "blue_armor"
+
+[node name="BodySprite" parent="." index="0" unique_id=462972958]
+texture = ExtResource("3_atpat")
