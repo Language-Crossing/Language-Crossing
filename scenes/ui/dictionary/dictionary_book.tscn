@@ -1,0 +1,159 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/dictionary/dictionary_book.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/ui_books_and_more.png" id="2_sheet"]
+[ext_resource type="FontFile" path="res://assets/Fonts/berkshireSwash/BerkshireSwash-Regular.ttf" id="3_font"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_book"]
+atlas = ExtResource("2_sheet")
+region = Rect2(16, 32, 96, 48)
+
+[node name="DictionaryBook" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Dim" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layout" type="VBoxContainer" parent="Center"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Center/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.878, 0.718, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 40
+text = "Diccionario"
+horizontal_alignment = 1
+
+[node name="Book" type="TextureRect" parent="Center/Layout"]
+custom_minimum_size = Vector2(768, 384)
+layout_mode = 2
+mouse_filter = 0
+texture_filter = 1
+texture = SubResource("AtlasTexture_book")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="LeftPage" type="Control" parent="Center/Layout/Book"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 24.0
+offset_right = 312.0
+offset_bottom = 280.0
+mouse_filter = 2
+
+[node name="LeftEntries" type="VBoxContainer" parent="Center/Layout/Book/LeftPage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="RightPage" type="Control" parent="Center/Layout/Book"]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 24.0
+offset_right = 688.0
+offset_bottom = 280.0
+mouse_filter = 2
+
+[node name="RightEntries" type="VBoxContainer" parent="Center/Layout/Book/RightPage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="LeftNumber" type="Label" parent="Center/Layout/Book"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 284.0
+offset_right = 312.0
+offset_bottom = 308.0
+theme_override_colors/font_color = Color(0.478, 0.353, 0.314, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+
+[node name="RightNumber" type="Label" parent="Center/Layout/Book"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 456.0
+offset_top = 284.0
+offset_right = 688.0
+offset_bottom = 308.0
+theme_override_colors/font_color = Color(0.478, 0.353, 0.314, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
+text = "2"
+horizontal_alignment = 1
+
+[node name="Nav" type="HBoxContainer" parent="Center/Layout"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PrevButton" type="Button" parent="Center/Layout/Nav"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "< Prev"
+
+[node name="CountLabel" type="Label" parent="Center/Layout/Nav"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.878, 0.718, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 20
+text = "0 words"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="Center/Layout/Nav"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Next >"
+
+[node name="CloseButton" type="Button" parent="Center/Layout/Nav"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Close"

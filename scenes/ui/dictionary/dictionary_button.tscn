@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/ui_books_and_more.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_normal"]
+atlas = ExtResource("1_sheet")
+region = Rect2(464, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hover"]
+atlas = ExtResource("1_sheet")
+region = Rect2(464, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pressed"]
+atlas = ExtResource("1_sheet")
+region = Rect2(464, 208, 16, 16)
+
+[node name="DictionaryButton" type="TextureButton"]
+custom_minimum_size = Vector2(64, 64)
+texture_filter = 1
+tooltip_text = "Dictionary"
+texture_normal = SubResource("AtlasTexture_normal")
+texture_pressed = SubResource("AtlasTexture_pressed")
+texture_hover = SubResource("AtlasTexture_hover")
+ignore_texture_size = true
+stretch_mode = 0
