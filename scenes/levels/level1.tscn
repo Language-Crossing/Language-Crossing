@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://d1oe4ug5jdu25" path="res://scenes/characters/character.tscn" id="19_teacher"]
 [ext_resource type="Texture2D" uid="uid://c05n8sqfg4tkp" path="res://assets/tilesets/classroom_tiles.png" id="1_x6ivy"]
-[ext_resource type="Script" uid="uid://b3qbovjcievnj" path="res://scripts/player.gd" id="2_jprdt"]
-[ext_resource type="Script" path="res://scripts/levels/behavior/tutorial.gd" id="16_level"]
+[ext_resource type="Script" uid="uid://b1lnekb78ygdx" path="res://scenes/characters/player.gd" id="2_jprdt"]
+[ext_resource type="Script" uid="uid://bm6m2vfurdy7d" path="res://scripts/levels/behavior/tutorial.gd" id="16_level"]
 [ext_resource type="Script" uid="uid://c1ccccx5mefge" path="res://scripts/levels/behavior/interactable_npc.gd" id="17_npc"]
 [ext_resource type="PackedScene" uid="uid://bpsnrnitln3mh" path="res://scenes/ui/dialogue_ui.tscn" id="18_dialogue_ui"]
 [ext_resource type="PackedScene" uid="uid://c024jy4ftdqov" path="res://scenes/characters/player.tscn" id="2_4tcl0"]
