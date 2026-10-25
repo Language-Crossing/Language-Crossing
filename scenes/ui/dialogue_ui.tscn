@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://bpsnrnitln3mh"]
+
+[ext_resource type="Script" uid="uid://dfjt0ie3sgmwd" path="res://scripts/dialogue_ui.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://b8smb7cea4tts" path="res://assets/UI/pixel-ui-free-1.0.2/addons/pixel_ui/themes/wood.tres" id="2_theme"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sd0pw"]
+bg_color = Color(0.57080555, 0.3847872, 0.17982918, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="DialogueUI" type="CanvasLayer" unique_id=840615455]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Root" type="Control" parent="." unique_id=1298534987]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+
+[node name="BottomLayout" type="VBoxContainer" parent="Root" unique_id=1186165744]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -350.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="DialoguePanel" type="PanelContainer" parent="Root/BottomLayout" unique_id=797591450]
+custom_minimum_size = Vector2(0, 108)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_sd0pw")
+
+[node name="DialogueContent" type="VBoxContainer" parent="Root/BottomLayout/DialoguePanel" unique_id=58036510]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="SpeakerName" type="Label" parent="Root/BottomLayout/DialoguePanel/DialogueContent" unique_id=1563287880]
+layout_mode = 2
+theme_type_variation = &"Title"
+
+[node name="DialogueText" type="Label" parent="Root/BottomLayout/DialoguePanel/DialogueContent" unique_id=1687402153]
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 3
+
+[node name="Options" type="GridContainer" parent="Root/BottomLayout" unique_id=1099646612]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="CloseButton" type="Button" parent="Root/BottomLayout" unique_id=2005961918]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Close"
