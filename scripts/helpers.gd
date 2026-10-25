@@ -7,9 +7,6 @@ const SAVE_ROOT := "user://saves"
 
 static func read_config(relative_path: String, fallback: Variant = null) -> Variant:
 	var path := CONFIG_ROOT.path_join(relative_path)
-	if not FileAccess.file_exists(path):
-		push_error("Config file does not exist: %s" % path)
-		return _copy_fallback(fallback)
 	return read_json(path, fallback)
 
 
@@ -19,6 +16,7 @@ static func read_save(file_name: String, fallback: Variant = null) -> Variant:
 
 static func read_json(path: String, fallback: Variant = null) -> Variant:
 	if not FileAccess.file_exists(path):
+		push_error("File does not exist: %s" % path)
 		return _copy_fallback(fallback)
 
 	var file := FileAccess.open(path, FileAccess.READ)
@@ -52,8 +50,7 @@ static func write_save(file_name: String, data: Variant) -> bool:
 	file.close()
 	return true
 
-
 static func _copy_fallback(value: Variant) -> Variant:
-	if value is Dictionary or value is Array:
-		return value.duplicate(true)
+	if value is Dictionary or value is Array: 
+		return value.duplicate(true) # Creates a deep copy if value is a dicationary or array
 	return value
