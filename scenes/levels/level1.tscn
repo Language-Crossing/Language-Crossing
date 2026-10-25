@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c1ccccx5mefge" path="res://scripts/levels/behavior/interactable_npc.gd" id="17_npc"]
 [ext_resource type="PackedScene" uid="uid://bpsnrnitln3mh" path="res://scenes/ui/dialogue_ui.tscn" id="18_dialogue_ui"]
 [ext_resource type="PackedScene" uid="uid://c024jy4ftdqov" path="res://scenes/characters/player.tscn" id="2_4tcl0"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dictionary/dictionary_hud.tscn" id="2_dicthud"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4tcl0"]
 texture = ExtResource("1_x6ivy")
@@ -827,3 +828,5 @@ outfit_type = "grey_tunic"
 head_type = "brown_bob"
 
 [node name="DialogueUI" parent="." unique_id=940229574 instance=ExtResource("18_dialogue_ui")]
+
+[node name="DictionaryHUD" parent="." instance=ExtResource("2_dicthud")]
