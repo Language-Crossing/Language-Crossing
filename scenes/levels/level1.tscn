@@ -1,6 +1,11 @@
 [gd_scene format=4 uid="uid://cwfvk61kahsxx"]
 
+[ext_resource type="PackedScene" uid="uid://d1oe4ug5jdu25" path="res://scenes/characters/character.tscn" id="19_teacher"]
 [ext_resource type="Texture2D" uid="uid://c05n8sqfg4tkp" path="res://assets/tilesets/classroom_tiles.png" id="1_x6ivy"]
+[ext_resource type="Script" uid="uid://b3qbovjcievnj" path="res://scripts/player.gd" id="2_jprdt"]
+[ext_resource type="Script" path="res://scripts/levels/behavior/tutorial.gd" id="16_level"]
+[ext_resource type="Script" uid="uid://c1ccccx5mefge" path="res://scripts/levels/behavior/interactable_npc.gd" id="17_npc"]
+[ext_resource type="PackedScene" uid="uid://bpsnrnitln3mh" path="res://scenes/ui/dialogue_ui.tscn" id="18_dialogue_ui"]
 [ext_resource type="PackedScene" uid="uid://c024jy4ftdqov" path="res://scenes/characters/player.tscn" id="2_4tcl0"]
 [ext_resource type="PackedScene" path="res://scenes/ui/dictionary/dictionary_hud.tscn" id="2_dicthud"]
 
@@ -781,6 +786,7 @@ sources/1 = SubResource("TileSetAtlasSource_4tcl0")
 
 [node name="LevelRoot" type="Node2D" unique_id=1221234548]
 scale = Vector2(2, 2)
+script = ExtResource("16_level")
 
 [node name="layer-holder" type="Node2D" parent="." unique_id=2116506981]
 
@@ -812,5 +818,15 @@ tile_set = SubResource("TileSet_b0cdc")
 position = Vector2(274.5, 339.5)
 outfit_type = "grey_armor"
 head_type = "grey_hat"
+
+[node name="Teacher" parent="." unique_id=1455081084 instance=ExtResource("19_teacher")]
+position = Vector2(478, 172.5)
+script = ExtResource("17_npc")
+npc_id = &"teacher"
+body_type = "brown"
+outfit_type = "grey_tunic"
+head_type = "brown_bob"
+
+[node name="DialogueUI" parent="." unique_id=940229574 instance=ExtResource("18_dialogue_ui")]
 
 [node name="DictionaryHUD" parent="." instance=ExtResource("2_dicthud")]
