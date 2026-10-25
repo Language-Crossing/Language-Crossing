@@ -3,7 +3,7 @@ extends CanvasLayer
 ## Drop one instance of dictionary_hud.tscn into any level scene.
 ##
 ## Debug builds only (so you can test without any interactions existing yet):
-##   F9  - offer the next sample word (shows the save prompt)
+##   F9  - add the next sample word, the same way dialogue does
 ##   F10 - clear the saved dictionary
 
 @onready var _button: BaseButton = %DictionaryButton
@@ -19,6 +19,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_F9:
-			DictionaryManager.debug_offer_sample_word()
+			DictionaryManager.debug_add_sample_word()
 		elif event.keycode == KEY_F10:
 			DictionaryManager.debug_clear()

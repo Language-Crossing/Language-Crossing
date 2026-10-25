@@ -1,7 +1,12 @@
 extends Node
-## Autoload: owns the player's saved words.
-## UI scenes only read from this and write through it, so the book, the button
-## and the "save this word?" prompt never hold their own copy of the data.
+## Autoload: the one place to read or add the player's saved words.
+## UI scenes and dialogue only go through this, so nothing else holds its own copy.
+##
+## The words themselves live in PlayerState.dictionary and are written to PlayerState's
+## save file, so there is one save and F8 (reset progress) resets the dictionary too.
+## New players start with the words in configs/Player/dictionary.json (currently none).
+## In the game, words arrive from dialogue: base_level.gd calls add_level_entry() for each
+## word in a question's "dictionary" list when the player answers it correctly.
 ##
 ## Entry shape matches configs/Player/dictionary.json:
 ##   { "spanishWord": "Hola", "englishWord": "Hello", "partOfSpeech": "interjection" (optional) }
@@ -13,23 +18,31 @@ signal dictionary_changed
 ## Emitted by offer_word(). The save prompt listens to this.
 signal word_offered(entry: Dictionary)
 
-const SAVE_PATH := "user://dictionary.json"
 ## Only used by the F9 debug helper below, never as the player's real data.
-const SAMPLE_PATH := "res://configs/Player/dictionary.json"
-
-var _words: Array[Dictionary] = []
+const DEBUG_SAMPLE_WORDS: Array[Dictionary] = [
+	{"spanishWord": "Casa", "englishWord": "House"},
+	{"spanishWord": "Perro", "englishWord": "Dog"},
+	{"spanishWord": "Gato", "englishWord": "Cat"},
+	{"spanishWord": "Agua", "englishWord": "Water"},
+	{"spanishWord": "Libro", "englishWord": "Book"},
+]
 
 
 func _ready() -> void:
-	_load()
+	# PlayerState loads before this autoload, and emits state_loaded again after F8.
+	PlayerState.state_loaded.connect(dictionary_changed.emit)
 
 
 func get_words() -> Array[Dictionary]:
-	return _words.duplicate()
+	var words: Array[Dictionary] = []
+	for item in _entries():
+		if item is Dictionary and item.has("spanishWord"):
+			words.append(item.duplicate())
+	return words
 
 
 func get_word_count() -> int:
-	return _words.size()
+	return get_words().size()
 
 
 func has_word(spanish: String) -> bool:
@@ -44,19 +57,20 @@ func add_word(spanish: String, english: String, part_of_speech: String = "") -> 
 	var entry := {"spanishWord": spanish, "englishWord": english.strip_edges()}
 	if not part_of_speech.is_empty():
 		entry["partOfSpeech"] = part_of_speech
-	_words.append(entry)
-	_save()
+	_entries().append(entry)
+	PlayerState.save_game()
 	word_added.emit(entry)
 	dictionary_changed.emit()
 	return true
 
 
-## Same as add_word, for an entry from a level JSON "dictionary" array:
+## Same as add_word, for an entry from a level JSON "dictionary" array. Accepts either key style:
 ##   { "spanish": "Hola", "english": "Hello", "partOfSpeech": "interjection" }
+##   { "spanishWord": "Hola", "englishWord": "Hello" }
 func add_level_entry(level_entry: Dictionary) -> bool:
 	return add_word(
-		str(level_entry.get("spanish", "")),
-		str(level_entry.get("english", "")),
+		str(level_entry.get("spanish", level_entry.get("spanishWord", ""))),
+		str(level_entry.get("english", level_entry.get("englishWord", ""))),
 		str(level_entry.get("partOfSpeech", ""))
 	)
 
@@ -74,59 +88,34 @@ func offer_word(spanish: String, english: String, part_of_speech: String = "") -
 
 # --- Debug helpers (only wired up in debug builds, see dictionary_hud.gd) ---
 
-## Offers the next sample word that isn't saved yet, to test the prompt + book end to end.
-func debug_offer_sample_word() -> void:
-	var file := FileAccess.open(SAMPLE_PATH, FileAccess.READ)
-	if file == null:
-		push_warning("DictionaryManager: could not open %s" % SAMPLE_PATH)
-		return
-	var parsed: Variant = JSON.parse_string(file.get_as_text())
-	if not (parsed is Dictionary) or not parsed.has("dictionary"):
-		return
-	for item in parsed["dictionary"]:
-		if item is Dictionary and not has_word(str(item.get("spanishWord", ""))):
-			offer_word(
-				str(item.get("spanishWord", "")),
-				str(item.get("englishWord", "")),
-				str(item.get("partOfSpeech", ""))
-			)
+## Adds the next debug sample word that isn't saved yet, the same way dialogue does (no prompt).
+func debug_add_sample_word() -> void:
+	for item in DEBUG_SAMPLE_WORDS:
+		if not has_word(str(item["spanishWord"])):
+			add_level_entry(item)
 			return
 
 
+## Empties the dictionary. F8 (reset progress) does the same, since new players start blank.
 func debug_clear() -> void:
-	_words.clear()
-	_save()
+	_entries().clear()
+	PlayerState.save_game()
 	dictionary_changed.emit()
 
 
 # --- Internals ---
 
+## The live word list inside PlayerState. Edits to it are saved by PlayerState.save_game().
+func _entries() -> Array:
+	if not PlayerState.dictionary.get("dictionary") is Array:
+		PlayerState.dictionary["dictionary"] = []
+	return PlayerState.dictionary["dictionary"]
+
+
 func _index_of(spanish: String) -> int:
 	var wanted := spanish.strip_edges().to_lower()
-	for i in _words.size():
-		if str(_words[i].get("spanishWord", "")).to_lower() == wanted:
+	var words := _entries()
+	for i in words.size():
+		if words[i] is Dictionary and str(words[i].get("spanishWord", "")).to_lower() == wanted:
 			return i
 	return -1
-
-
-func _save() -> void:
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	if file == null:
-		push_error("DictionaryManager: could not write %s (error %d)" % [SAVE_PATH, FileAccess.get_open_error()])
-		return
-	file.store_string(JSON.stringify({"dictionary": _words}, "\t"))
-
-
-func _load() -> void:
-	if not FileAccess.file_exists(SAVE_PATH):
-		return
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-	if file == null:
-		return
-	var parsed: Variant = JSON.parse_string(file.get_as_text())
-	if not (parsed is Dictionary) or not parsed.has("dictionary"):
-		push_warning("DictionaryManager: %s is not a valid dictionary file, starting empty" % SAVE_PATH)
-		return
-	for item in parsed["dictionary"]:
-		if item is Dictionary and item.has("spanishWord"):
-			_words.append(item)
