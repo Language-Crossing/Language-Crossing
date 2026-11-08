@@ -16,4 +16,4 @@ func _on_input_event(_viewport: Viewport, event: InputEvent, _shape_index: int) 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if OS.is_debug_build():
 			print("[Dialogue] NPC clicked: %s" % npc_id)
-		interacted.emit(npc_id)
+		interacted.emit(npc_id) # This signal is caught by the base level script
