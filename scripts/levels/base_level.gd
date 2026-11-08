@@ -125,7 +125,9 @@ func choose_dialogue_option(option_index: int) -> Dictionary:
 			checkpoint_dialogue_id = int(next_dialogue.get("id", checkpoint_dialogue_id))
 		var learned_terms: Variant = current_dialogue.get("dictionary", [])
 		if learned_terms is Array:
-			player_state.call("add_dictionary_entries", learned_terms)
+			for term in learned_terms:
+				if term is Dictionary:
+					DictionaryManager.add_level_entry(term)
 		player_state.call("set_dialogue_checkpoint", target_level_id, str(active_npc_id), checkpoint_dialogue_id, completed)
 		player_state.call("save_game")
 
