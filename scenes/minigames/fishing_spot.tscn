@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bhyhxg0hp5vdo"]
+
+[ext_resource type="Script" uid="uid://d22ndnlmicu1o" path="res://scenes/minigames/fishing_spot.gd" id="1_q7bu0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2kpx"]
+size = Vector2(25, 190)
+
+[node name="FishingSpot" type="Node2D" unique_id=1688823409]
+
+[node name="FishingSpot" type="Area2D" parent="." unique_id=1774588776]
+script = ExtResource("1_q7bu0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishingSpot" unique_id=2026652875]
+shape = SubResource("RectangleShape2D_f2kpx")
+
+[connection signal="body_entered" from="FishingSpot" to="FishingSpot" method="_on_body_entered"]
+[connection signal="body_exited" from="FishingSpot" to="FishingSpot" method="_on_body_exited"]
