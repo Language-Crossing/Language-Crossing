@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/dictionary/dictionary_hud.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dictionary/dictionary_button.tscn" id="2_button"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dictionary/dictionary_book.tscn" id="3_book"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dictionary/save_word_prompt.tscn" id="4_prompt"]
+
+[node name="DictionaryHUD" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="DictionaryButton" parent="." instance=ExtResource("2_button")]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -84.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 84.0
+grow_horizontal = 0
+
+[node name="DictionaryBook" parent="." instance=ExtResource("3_book")]
+unique_name_in_owner = true
+
+[node name="SaveWordPrompt" parent="." instance=ExtResource("4_prompt")]

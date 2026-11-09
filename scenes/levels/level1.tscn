@@ -1,12 +1,13 @@
 [gd_scene format=4 uid="uid://cwfvk61kahsxx"]
 
-[ext_resource type="PackedScene" uid="uid://d1oe4ug5jdu25" path="res://scenes/characters/character.tscn" id="19_teacher"]
 [ext_resource type="Texture2D" uid="uid://c05n8sqfg4tkp" path="res://assets/tilesets/classroom_tiles.png" id="1_x6ivy"]
-[ext_resource type="Script" uid="uid://b3qbovjcievnj" path="res://scripts/player.gd" id="2_jprdt"]
-[ext_resource type="Script" path="res://scripts/levels/behavior/tutorial.gd" id="16_level"]
+[ext_resource type="PackedScene" uid="uid://c024jy4ftdqov" path="res://scenes/characters/player.tscn" id="2_4tcl0"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dictionary/dictionary_hud.tscn" id="2_dicthud"]
+[ext_resource type="PackedScene" uid="uid://dme1u0cx78oj3" path="res://assets/Menu/Menu.tscn" id="8_8a7m2"]
+[ext_resource type="Script" uid="uid://bm6m2vfurdy7d" path="res://scripts/levels/behavior/tutorial.gd" id="16_level"]
 [ext_resource type="Script" uid="uid://c1ccccx5mefge" path="res://scripts/levels/behavior/interactable_npc.gd" id="17_npc"]
 [ext_resource type="PackedScene" uid="uid://bpsnrnitln3mh" path="res://scenes/ui/dialogue_ui.tscn" id="18_dialogue_ui"]
-[ext_resource type="PackedScene" uid="uid://c024jy4ftdqov" path="res://scenes/characters/player.tscn" id="2_4tcl0"]
+[ext_resource type="PackedScene" uid="uid://d1oe4ug5jdu25" path="res://scenes/characters/character.tscn" id="19_teacher"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4tcl0"]
 texture = ExtResource("1_x6ivy")
@@ -822,8 +823,13 @@ head_type = "grey_hat"
 position = Vector2(478, 172.5)
 script = ExtResource("17_npc")
 npc_id = &"teacher"
+interact_radius = 30.0
 body_type = "brown"
 outfit_type = "grey_tunic"
 head_type = "brown_bob"
 
 [node name="DialogueUI" parent="." unique_id=940229574 instance=ExtResource("18_dialogue_ui")]
+
+[node name="DictionaryHUD" parent="." unique_id=1989522834 instance=ExtResource("2_dicthud")]
+
+[node name="Node2D" parent="." unique_id=2109147346 instance=ExtResource("8_8a7m2")]
