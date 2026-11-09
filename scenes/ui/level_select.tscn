@@ -1,3 +1,65 @@
 [gd_scene format=3 uid="uid://b7orecicnhfvb"]
 
+[ext_resource type="FontFile" uid="uid://dxm8jh28osfu1" path="res://assets/Fonts/pixel-game/Pixel Game.otf" id="1_7l8mc"]
+[ext_resource type="Texture2D" uid="uid://nduh1it5rnn5" path="res://assets/tilesets/UiCozyFree.png" id="2_ccmqc"]
+[ext_resource type="Script" uid="uid://f66lyv0hkg1k" path="res://scenes/ui/level_card_button.gd" id="3_ccmqc"]
+[ext_resource type="Texture2D" uid="uid://jbb1qbgydxhk" path="res://assets/tilesets/Sprout Lands - UI Pack - Basic pack/Sprite sheets/UI Big Play Button.png" id="3_swyxg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e50kr"]
+size = Vector2(169, 46)
+
 [node name="LevelSelect" type="Node2D" unique_id=1128757912]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=58022144]
+
+[node name="Title" type="Label" parent="CanvasLayer" unique_id=524000013]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -173.0
+offset_top = 45.0
+offset_right = 173.0
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_7l8mc")
+theme_override_font_sizes/font_size = 80
+text = "Level Select"
+
+[node name="Level-1-Card" type="Node2D" parent="CanvasLayer" unique_id=1061710928]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Level-1-Card" unique_id=363653]
+position = Vector2(276, 337.00003)
+scale = Vector2(4.9658656, 4.096628)
+texture = ExtResource("2_ccmqc")
+region_enabled = true
+region_rect = Rect2(98.333336, 163.5, 64.166664, 90.75)
+
+[node name="Label" type="Label" parent="CanvasLayer/Level-1-Card" unique_id=1510775668]
+offset_left = 223.0
+offset_top = 220.0
+offset_right = 330.0
+offset_bottom = 265.0
+theme_override_colors/font_color = Color(0.36078432, 0.18039216, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Level 1"
+
+[node name="Area2D" type="Area2D" parent="CanvasLayer/Level-1-Card" unique_id=159609883]
+script = ExtResource("3_ccmqc")
+level_scene = "uid://cwfvk61kahsxx"
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Level-1-Card/Area2D" unique_id=320578898]
+position = Vector2(281, 428.00003)
+scale = Vector2(1.9110827, 1.8437513)
+texture = ExtResource("3_swyxg")
+region_enabled = true
+region_rect = Rect2(0, 31.25, 97, 32.75)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Level-1-Card/Area2D" unique_id=1028580726]
+position = Vector2(279.5, 428)
+shape = SubResource("RectangleShape2D_e50kr")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=914541468]
+offset_right = 1293.0
+offset_bottom = 719.0
+mouse_filter = 2
+color = Color(0.36078432, 0.18039216, 0, 1)

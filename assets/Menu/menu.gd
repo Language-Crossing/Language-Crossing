@@ -9,7 +9,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_start_pressed() -> void:
-	var level1 = "res://scenes/levels/level1.tscn"
+	var level1 = "res://scenes/ui/level_select.tscn"
 	get_tree().change_scene_to_file(level1)
 	print("loading " + level1)
 
