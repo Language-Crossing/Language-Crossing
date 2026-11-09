@@ -4,6 +4,8 @@ signal dialogue_started(context: Dictionary)
 signal dialogue_choice_resolved(result: Dictionary)
 signal dialogue_closed
 
+const XP_PER_CORRECT_ANSWER := 10
+
 @export_file("*.json") var config_path := ""
 
 var level_data: Dictionary = {}
@@ -11,6 +13,8 @@ var npcs_by_id: Dictionary = {}
 var active_npc_id: StringName = &""
 var active_dialogues: Array = []
 var active_dialogue_index := -1
+# True while replaying a finished conversation for practice: no checkpoint changes, no XP.
+var is_replay := false
 @onready var player_state: Node = get_node("/root/PlayerState")
 
 
@@ -62,15 +66,21 @@ func start_dialogue(npc_id: StringName) -> Dictionary:
 	active_npc_id = npc_id
 	active_dialogues = dialogues.duplicate(true)
 	var checkpoint: Dictionary = player_state.call("get_dialogue_checkpoint", int(level_data.get("levelId", 0)), str(npc_id))
-	if bool(checkpoint.get("completed", false)):
+	var completed := bool(checkpoint.get("completed", false))
+	is_replay = completed and _has_quiz(active_dialogues)
+	if completed and not is_replay:
 		active_dialogue_index = -1
 		_log_dialogue("Conversation already completed for %s" % npc_id)
 		var completed_context := _build_dialogue_context(npc_data, {}, true)
 		dialogue_started.emit(completed_context)
 		return completed_context
 
-	var dialogue_id := int(checkpoint.get("dialogueId", 0))
-	active_dialogue_index = _find_dialogue_index(dialogue_id)
+	if is_replay:
+		active_dialogue_index = 0
+		_log_dialogue("Replaying completed conversation for %s" % npc_id)
+	else:
+		var dialogue_id := int(checkpoint.get("dialogueId", 0))
+		active_dialogue_index = _find_dialogue_index(dialogue_id)
 	if active_dialogue_index < 0:
 		active_dialogue_index = 0
 		player_state.call("set_dialogue_checkpoint",
@@ -123,17 +133,19 @@ func choose_dialogue_option(option_index: int) -> Dictionary:
 		var checkpoint_dialogue_id := int(current_dialogue.get("id", 0))
 		if not completed:
 			checkpoint_dialogue_id = int(next_dialogue.get("id", checkpoint_dialogue_id))
-		var learned_terms: Variant = current_dialogue.get("dictionary", [])
-		if learned_terms is Array:
-			for term in learned_terms:
-				if term is Dictionary:
-					DictionaryManager.add_level_entry(term)
-		player_state.call("set_dialogue_checkpoint", target_level_id, str(active_npc_id), checkpoint_dialogue_id, completed)
-		player_state.call("save_game")
+		var learned_term: Variant = selected_option.get("learns", {})
+		if learned_term is Dictionary and not learned_term.is_empty():
+			DictionaryManager.add_level_entry(learned_term)
+		if not is_replay:
+			player_state.call("set_dialogue_checkpoint", target_level_id, str(active_npc_id), checkpoint_dialogue_id, completed)
+			if str(current_dialogue.get("kind", "")) == "quiz":
+				player_state.call("add_xp", XP_PER_CORRECT_ANSWER)
+			player_state.call("save_game")
 
 	var result := {
 		"npcId": str(active_npc_id),
 		"response": str(selected_option.get("response", "")),
+		"blankFill": str(selected_option.get("blankFill", "")),
 		"isCorrect": is_correct,
 		"nextDialogue": next_dialogue,
 		"completed": completed
@@ -147,6 +159,7 @@ func close_dialogue() -> void:
 	active_npc_id = &""
 	active_dialogues = []
 	active_dialogue_index = -1
+	is_replay = false
 	dialogue_closed.emit()
 
 
@@ -157,6 +170,13 @@ func _on_npc_interacted(npc_id: StringName) -> void:
 func _log_dialogue(message: String) -> void:
 	if OS.is_debug_build():
 		print("[Dialogue] %s" % message)
+
+
+func _has_quiz(dialogues: Array) -> bool:
+	for dialogue in dialogues:
+		if dialogue is Dictionary and str(dialogue.get("kind", "")) == "quiz":
+			return true
+	return false
 
 
 func _find_dialogue_index(dialogue_id: int) -> int:
