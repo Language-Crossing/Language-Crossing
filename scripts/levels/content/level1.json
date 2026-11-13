@@ -4,24 +4,122 @@
   "levelDescription": "Explore the library and learn fundamental Spanish greetings, introduce yourself, and help townspeople find their items.",
   "NPCS": [
     {
+      "npcId": "teacher",
+      "name": "Teacher",
+      "talkFirstMessage": "Please talk to the Teacher by the globe first!",
+      "dialogues": [
+        {
+          "question": "Hello! Welcome to Language Crossing. Are you ready to start learning some basic Spanish words?",
+          "id": 1,
+          "options": [
+            {
+              "optionText": "Yes, I'm ready!",
+              "response": "",
+              "isAnswer": true
+            },
+            {
+              "optionText": "No, I need more time.",
+              "response": "No problem! Take your time and come back when you're ready.",
+              "isAnswer": false
+            }
+          ],
+          "dictionary": []
+        },
+        {
+          "question": "Great! Here are some things you should know first! In this first level, you will learn some basic Spanish words and phrases. To help you learn, you can use the dictionary to look up words and phrases that you unlock throughout the game. You can access the dictionary at any time by clicking on the dictionary icon in the top right corner of the screen.",
+          "id": 3,
+          "options": [
+            {
+              "optionText": "Sounds good!",
+              "response": "",
+              "isAnswer": true
+            }
+          ],
+          "dictionary": []
+        },
+        {
+          "question": "In Spanish, we conjugate verbs based on the subject of the sentence. For example, the verb 'to be' is conjugated as 'soy' for 'I am', 'eres' for 'you are', and 'es' for 'he/she/it is'. You can access the present tense conjugation cheat sheet by clicking on the cheat sheet icon in the top right corner of the screen.",
+          "id": 4,
+          "options": [
+            {
+              "optionText": "Got it!",
+              "response": "",
+              "isAnswer": true
+            }
+          ]
+        },
+        {
+          "question": "Throughout the game, you are free to explore the world and interact with the NPCs. You can walk up to the NPCs and press E to start a conversation and learn new words and phrases.",
+          "id": 5,
+          "options": [
+            {
+              "optionText": "Thanks!",
+              "response": "",
+              "isAnswer": true
+            }
+          ]
+        },
+        {
+          "question": "Sometimes, NPCs will direct you to an object somewhere in the world. Find the object they describe and interact with it to help them with their task.",
+          "id": 6,
+          "options": [
+            {
+              "optionText": "Got it!",
+              "response": "",
+              "isAnswer": true
+            }
+          ]
+        },
+        {
+          "question": "You earn Experience Points (XP) by completing interactions and learning new words and phrases. You can track your progress with the XP bar at the bottom of the screen. Once you complete all of the interactions in a level, you will level up and unlock the next level!",
+          "id": 7,
+          "options": [
+            {
+              "optionText": "Understood!",
+              "response": "",
+              "isAnswer": true
+            }
+          ]
+        },
+        {
+          "question": "Now that you are familiar with the basics, are you ready to start learning some Spanish words and phrases?",
+          "id": 8,
+          "options": [
+            {
+              "optionText": "Yes, let's start!",
+              "response": "Great! Head over to Sofia, our librarian, by the bookshelves. She'll teach you your first Spanish words!",
+              "isAnswer": true
+            },
+            {
+              "optionText": "No, I need more time.",
+              "response": "No problem! Take your time and come back when you're ready.",
+              "isAnswer": false
+            }
+          ]
+        }
+      ]
+    },
+    {
       "npcId": "sofia",
       "name": "Sofia (Librarian)",
+      "requires": "teacher",
+      "talkFirstMessage": "Please talk to Sofia by the bookshelves first!",
       "dialogues": [
         {
           "id": 1,
-          "question": "Sofia: '¡Hola! Welcome to the library. Complete your introduction: \"¡Hola! [blank] Sam.\"'",
-          "dictionary": [
-            { "spanish": "Hola", "english": "Hello", "partOfSpeech": "interjection" },
-            { "spanish": "Me llamo", "english": "My name is", "partOfSpeech": "phrase" },
-            { "spanish": "Gracias", "english": "Thank you", "partOfSpeech": "interjection" },
-            { "spanish": "Adiós", "english": "Goodbye", "partOfSpeech": "interjection" }
-          ],
+          "kind": "quiz",
+          "question": "¡Hola! Welcome to the library. Complete your introduction: \"¡Hola! [blank] Sam.\"",
           "options": [
             {
               "optionText": "Me llamo",
               "blankFill": "Me llamo",
               "response": "¡Mucho gusto! 'Me llamo' means 'My name is'.",
-              "isAnswer": true
+              "isAnswer": true,
+              "learns": {
+                "spanish": "Me llamo",
+                "english": "My name is",
+                "partOfSpeech": "phrase"
+              }
             },
             {
               "optionText": "Gracias",
@@ -39,19 +137,19 @@
         },
         {
           "id": 2,
-          "question": "Sofia: 'In Spanish, a book is called \"el libro\". Can you find el [blank] for me?'",
-          "dictionary": [
-            { "spanish": "el", "english": "the (masculine)", "partOfSpeech": "article" },
-            { "spanish": "libro", "english": "book", "partOfSpeech": "noun" },
-            { "spanish": "reloj", "english": "clock", "partOfSpeech": "noun" },
-            { "spanish": "papel", "english": "paper", "partOfSpeech": "noun" }
-          ],
+          "kind": "quiz",
+          "question": "In Spanish, a book is called \"el libro\". Can you find el [blank] for me?",
           "options": [
             {
               "optionText": "libro",
               "blankFill": "libro",
               "response": "¡Perfecto! 'Libro' is the Spanish word for book.",
-              "isAnswer": true
+              "isAnswer": true,
+              "learns": {
+                "spanish": "libro",
+                "english": "book",
+                "partOfSpeech": "noun"
+              }
             },
             {
               "optionText": "reloj",
@@ -69,18 +167,19 @@
         },
         {
           "id": 3,
-          "question": "Sofia: '¡Muchas gracias! How do you say \"You're welcome\" in Spanish?'",
-          "dictionary": [
-            { "spanish": "Muchas gracias", "english": "Thank you very much", "partOfSpeech": "phrase" },
-            { "spanish": "De nada", "english": "You're welcome", "partOfSpeech": "phrase" },
-            { "spanish": "Por favor", "english": "Please", "partOfSpeech": "phrase" }
-          ],
+          "kind": "quiz",
+          "question": "¡Muchas gracias! How do you say \"You're welcome\" in Spanish?",
           "options": [
             {
               "optionText": "De nada",
               "blankFill": "De nada",
-              "response": "¡Excelente! 'De nada' means 'You're welcome'.",
-              "isAnswer": true
+              "response": "¡Excelente! 'De nada' means 'You're welcome'. Next, go see Mateo the gardener by the potted plants on the right side of the library!",
+              "isAnswer": true,
+              "learns": {
+                "spanish": "De nada",
+                "english": "You're welcome",
+                "partOfSpeech": "phrase"
+              }
             },
             {
               "optionText": "Por favor",
@@ -101,22 +200,24 @@
     {
       "npcId": "mateo",
       "name": "Mateo (Gardener)",
+      "requires": "sofia",
+      "talkFirstMessage": "Please talk to Mateo by the potted plants first!",
       "dialogues": [
         {
           "id": 4,
-          "question": "Mateo: 'To say \"Good morning\" in Spanish, we say \"Buenos días\". Complete the greeting: \"[blank] días, Mateo!\"'",
-          "dictionary": [
-            { "spanish": "Buenos días", "english": "Good morning", "partOfSpeech": "phrase" },
-            { "spanish": "Buenos", "english": "Good (masculine plural)", "partOfSpeech": "adjective" },
-            { "spanish": "Buenas", "english": "Good (feminine plural)", "partOfSpeech": "adjective" },
-            { "spanish": "Mucho", "english": "Much / A lot", "partOfSpeech": "adjective" }
-          ],
+          "kind": "quiz",
+          "question": "To say \"Good morning\" in Spanish, we say \"Buenos días\". Complete the greeting: \"[blank] días, Mateo!\"",
           "options": [
             {
               "optionText": "Buenos",
               "blankFill": "Buenos",
               "response": "¡Muy bien! 'Buenos días' is 'Good morning'.",
-              "isAnswer": true
+              "isAnswer": true,
+              "learns": {
+                "spanish": "Buenos",
+                "english": "Good (masculine plural)",
+                "partOfSpeech": "adjective"
+              }
             },
             {
               "optionText": "Buenas",
@@ -134,19 +235,19 @@
         },
         {
           "id": 5,
-          "question": "Mateo: 'I need something green for my garden! \"La planta\" means \"the plant\". Can you bring me la [blank]?'",
-          "dictionary": [
-            { "spanish": "la", "english": "the (feminine)", "partOfSpeech": "article" },
-            { "spanish": "planta", "english": "plant", "partOfSpeech": "noun" },
-            { "spanish": "mesa", "english": "table", "partOfSpeech": "noun" },
-            { "spanish": "caja", "english": "box", "partOfSpeech": "noun" }
-          ],
+          "kind": "quiz",
+          "question": "I need something green for my garden! \"La planta\" means \"the plant\". Can you bring me la [blank]?",
           "options": [
             {
               "optionText": "planta",
               "blankFill": "planta",
-              "response": "¡Correcto! 'Planta' means plant.",
-              "isAnswer": true
+              "response": "¡Correcto! 'Planta' means plant. Next, go see Elena the carpenter on the open floor to the left of the desk!",
+              "isAnswer": true,
+              "learns": {
+                "spanish": "planta",
+                "english": "plant",
+                "partOfSpeech": "noun"
+              }
             },
             {
               "optionText": "mesa",
@@ -167,22 +268,23 @@
     {
       "npcId": "elena",
       "name": "Elena (Carpenter)",
+      "requires": "mateo",
       "dialogues": [
         {
           "id": 6,
-          "question": "Elena: 'In the afternoon, we greet people with \"Buenas tardes\". Complete your greeting: \"[blank] tardes, Elena!\"'",
-          "dictionary": [
-            { "spanish": "Buenas tardes", "english": "Good afternoon", "partOfSpeech": "phrase" },
-            { "spanish": "Buenas", "english": "Good (feminine plural)", "partOfSpeech": "adjective" },
-            { "spanish": "Buenos", "english": "Good (masculine plural)", "partOfSpeech": "adjective" },
-            { "spanish": "Hasta", "english": "Until", "partOfSpeech": "preposition" }
-          ],
+          "kind": "quiz",
+          "question": "In the afternoon, we greet people with \"Buenas tardes\". Complete your greeting: \"[blank] tardes, Elena!\"",
           "options": [
             {
               "optionText": "Buenas",
               "blankFill": "Buenas",
               "response": "¡Eso es! 'Buenas tardes' means 'Good afternoon'.",
-              "isAnswer": true
+              "isAnswer": true,
+              "learns": {
+                "spanish": "Buenas",
+                "english": "Good (feminine plural)",
+                "partOfSpeech": "adjective"
+              }
             },
             {
               "optionText": "Buenos",
@@ -200,19 +302,19 @@
         },
         {
           "id": 7,
-          "question": "Elena: 'I am crafting furniture! \"La silla\" means \"the chair\". Can you fetch la [blank] for my workshop?'",
-          "dictionary": [
-            { "spanish": "la", "english": "the (feminine)", "partOfSpeech": "article" },
-            { "spanish": "silla", "english": "chair", "partOfSpeech": "noun" },
-            { "spanish": "lámpara", "english": "lamp", "partOfSpeech": "noun" },
-            { "spanish": "alfombra", "english": "rug", "partOfSpeech": "noun" }
-          ],
+          "kind": "quiz",
+          "question": "I am crafting furniture! \"La silla\" means \"the chair\". Can you fetch la [blank] for my workshop?",
           "options": [
             {
               "optionText": "silla",
               "blankFill": "silla",
               "response": "¡Muy bien! 'Silla' means chair.",
-              "isAnswer": true
+              "isAnswer": true,
+              "learns": {
+                "spanish": "silla",
+                "english": "chair",
+                "partOfSpeech": "noun"
+              }
             },
             {
               "optionText": "lámpara",
