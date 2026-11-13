@@ -21,7 +21,7 @@ var _spread := 0
 
 
 func _ready() -> void:
-	add_to_group("blocks_player_movement")
+	MovementBlockers.register(self)
 	DictionaryManager.dictionary_changed.connect(_refresh)
 	_prev_button.pressed.connect(_turn.bind(-1))
 	_next_button.pressed.connect(_turn.bind(1))

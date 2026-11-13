@@ -5,7 +5,7 @@ func _physics_process(_delta):
 	# (negative_x, positive_x, negative_y, positive_y)
 	# Open conversations and the dictionary hold the player in place.
 	var input_dir = Vector2.ZERO
-	if not _is_movement_blocked():
+	if not MovementBlockers.is_blocking(get_tree()):
 		input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	# 2. Apply movement velocity
 	if input_dir != Vector2.ZERO:
@@ -18,10 +18,3 @@ func _physics_process(_delta):
 	
 	# 4. Trigger the base character's animation handler
 	update_animation_state(input_dir)
-
-
-func _is_movement_blocked() -> bool:
-	for node in get_tree().get_nodes_in_group("blocks_player_movement"):
-		if node.is_visible_in_tree():
-			return true
-	return false

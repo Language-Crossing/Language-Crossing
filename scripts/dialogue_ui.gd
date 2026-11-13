@@ -23,7 +23,7 @@ var pending_result: Dictionary = {}
 
 
 func _ready() -> void:
-	ui_root.add_to_group("blocks_player_movement")
+	MovementBlockers.register(ui_root)
 	ui_root.hide()
 	dialogue_text.add_theme_font_size_override("font_size", dialogue_font_size)
 	speaker_name.add_theme_font_size_override("font_size", speaker_font_size)

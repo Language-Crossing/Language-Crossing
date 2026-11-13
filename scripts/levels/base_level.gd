@@ -164,6 +164,9 @@ func close_dialogue() -> void:
 
 
 func _on_npc_interacted(npc_id: StringName) -> void:
+	# The interact key still fires while a conversation or the dictionary is open.
+	if MovementBlockers.is_blocking(get_tree()):
+		return
 	start_dialogue(npc_id)
 
 
