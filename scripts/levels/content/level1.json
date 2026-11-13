@@ -6,6 +6,7 @@
     {
       "npcId": "teacher",
       "name": "Teacher",
+      "talkFirstMessage": "Please talk to the Teacher by the globe first!",
       "dialogues": [
         {
           "question": "Hello! Welcome to Language Crossing. Are you ready to start learning some basic Spanish words?",
@@ -48,7 +49,7 @@
           ]
         },
         {
-          "question": "Throughout the game, you are free to explore the world and interact with the NPCs. You can click on the NPCs to start a conversation and learn new words and phrases. You can also click on objects in the world to pick them up and add them to your inventory. You can access your inventory at any time by clicking on the inventory icon in the top left corner of the screen.",
+          "question": "Throughout the game, you are free to explore the world and interact with the NPCs. You can walk up to the NPCs and press E to start a conversation and learn new words and phrases.",
           "id": 5,
           "options": [
             {
@@ -59,7 +60,7 @@
           ]
         },
         {
-          "question": "Sometimes, NPCs will ask you for items to help them with a task. You can give them the items they ask for by clicking on the NPC and selecting the item in your inventory. If you don't have the item they ask for, you can try to find it in the world or ask other NPCs if they have it.",
+          "question": "Sometimes, NPCs will direct you to an object somewhere in the world. Find the object they describe and interact with it to help them with their task.",
           "id": 6,
           "options": [
             {
@@ -70,7 +71,7 @@
           ]
         },
         {
-          "question": "You can collect Experience Points (XP) by completing tasks and learning new words and phrases. The more accurate you are, the more XP you will earn. You can use your XP to level up and unlock new areas of the world to explore. You can see your XP and progress bar at the top of the screen.",
+          "question": "You earn Experience Points (XP) by completing interactions and learning new words and phrases. You can track your progress with the XP bar at the bottom of the screen. Once you complete all of the interactions in a level, you will level up and unlock the next level!",
           "id": 7,
           "options": [
             {
@@ -101,6 +102,8 @@
     {
       "npcId": "sofia",
       "name": "Sofia (Librarian)",
+      "requires": "teacher",
+      "talkFirstMessage": "Please talk to Sofia by the bookshelves first!",
       "dialogues": [
         {
           "id": 1,
@@ -170,7 +173,7 @@
             {
               "optionText": "De nada",
               "blankFill": "De nada",
-              "response": "¡Excelente! 'De nada' means 'You're welcome'.",
+              "response": "¡Excelente! 'De nada' means 'You're welcome'. Next, go see Mateo the gardener by the potted plants on the right side of the library!",
               "isAnswer": true,
               "learns": {
                 "spanish": "De nada",
@@ -197,6 +200,8 @@
     {
       "npcId": "mateo",
       "name": "Mateo (Gardener)",
+      "requires": "sofia",
+      "talkFirstMessage": "Please talk to Mateo by the potted plants first!",
       "dialogues": [
         {
           "id": 4,
@@ -236,7 +241,7 @@
             {
               "optionText": "planta",
               "blankFill": "planta",
-              "response": "¡Correcto! 'Planta' means plant.",
+              "response": "¡Correcto! 'Planta' means plant. Next, go see Elena the carpenter on the open floor to the left of the desk!",
               "isAnswer": true,
               "learns": {
                 "spanish": "planta",
@@ -263,6 +268,7 @@
     {
       "npcId": "elena",
       "name": "Elena (Carpenter)",
+      "requires": "mateo",
       "dialogues": [
         {
           "id": 6,

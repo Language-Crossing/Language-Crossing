@@ -828,13 +828,29 @@ body_type = "brown"
 outfit_type = "grey_tunic"
 head_type = "brown_bob"
 
-[node name="Sofia" parent="." instance=ExtResource("19_teacher")]
-position = Vector2(380, 172.5)
+[node name="Sofia" parent="." unique_id=245629397 instance=ExtResource("19_teacher")]
+position = Vector2(478, 165)
 script = ExtResource("17_npc")
 npc_id = &"sofia"
 body_type = "tan"
 outfit_type = "emerald_tunic"
 head_type = "ginger_bob"
+
+[node name="Mateo" parent="." unique_id=1958266548 instance=ExtResource("19_teacher")]
+position = Vector2(585, 180)
+script = ExtResource("17_npc")
+npc_id = &"mateo"
+body_type = "caramel"
+outfit_type = "golden_tunic"
+head_type = "green_hat"
+
+[node name="Elena" parent="." unique_id=131960614 instance=ExtResource("19_teacher")]
+position = Vector2(142, 255)
+script = ExtResource("17_npc")
+npc_id = &"elena"
+body_type = "umber"
+outfit_type = "light_blue_armor"
+head_type = "brown_hat"
 
 [node name="DialogueUI" parent="." unique_id=940229574 instance=ExtResource("18_dialogue_ui")]
 

@@ -64,23 +64,27 @@ func start_dialogue(npc_id: StringName) -> Dictionary:
 		return {}
 
 	active_npc_id = npc_id
+	var unfinished_npc_id := _find_unfinished_prerequisite(npc_id)
+	if not unfinished_npc_id.is_empty():
+		active_dialogues = []
+		active_dialogue_index = -1
+		_log_dialogue("%s is waiting on %s" % [npc_id, unfinished_npc_id])
+		var waiting_context := _build_dialogue_context(npc_data, {}, false)
+		waiting_context["notice"] = _build_talk_first_notice(unfinished_npc_id)
+		dialogue_started.emit(waiting_context)
+		return waiting_context
+
 	active_dialogues = dialogues.duplicate(true)
 	var checkpoint: Dictionary = player_state.call("get_dialogue_checkpoint", int(level_data.get("levelId", 0)), str(npc_id))
-	var completed := bool(checkpoint.get("completed", false))
-	is_replay = completed and _has_quiz(active_dialogues)
-	if completed and not is_replay:
+	if bool(checkpoint.get("completed", false)):
 		active_dialogue_index = -1
 		_log_dialogue("Conversation already completed for %s" % npc_id)
 		var completed_context := _build_dialogue_context(npc_data, {}, true)
 		dialogue_started.emit(completed_context)
 		return completed_context
 
-	if is_replay:
-		active_dialogue_index = 0
-		_log_dialogue("Replaying completed conversation for %s" % npc_id)
-	else:
-		var dialogue_id := int(checkpoint.get("dialogueId", 0))
-		active_dialogue_index = _find_dialogue_index(dialogue_id)
+	var dialogue_id := int(checkpoint.get("dialogueId", 0))
+	active_dialogue_index = _find_dialogue_index(dialogue_id)
 	if active_dialogue_index < 0:
 		active_dialogue_index = 0
 		player_state.call("set_dialogue_checkpoint",
@@ -92,6 +96,19 @@ func start_dialogue(npc_id: StringName) -> Dictionary:
 
 	var context := _build_dialogue_context(npc_data, active_dialogues[active_dialogue_index], false)
 	_log_dialogue("Started %s at dialogue id %d" % [npc_id, int(context.dialogue.get("id", 0))])
+	dialogue_started.emit(context)
+	return context
+
+
+# Restarts the finished conversation the player just agreed to repeat.
+func replay_dialogue() -> Dictionary:
+	if not npcs_by_id.has(active_npc_id) or active_dialogues.is_empty():
+		return {}
+
+	is_replay = true
+	active_dialogue_index = 0
+	_log_dialogue("Replaying completed conversation for %s" % active_npc_id)
+	var context := _build_dialogue_context(npcs_by_id[active_npc_id], active_dialogues[0], false)
 	dialogue_started.emit(context)
 	return context
 
@@ -175,11 +192,23 @@ func _log_dialogue(message: String) -> void:
 		print("[Dialogue] %s" % message)
 
 
-func _has_quiz(dialogues: Array) -> bool:
-	for dialogue in dialogues:
-		if dialogue is Dictionary and str(dialogue.get("kind", "")) == "quiz":
-			return true
-	return false
+# Follows the NPC's "requires" chain and returns the earliest conversation still unfinished.
+func _find_unfinished_prerequisite(npc_id: StringName) -> StringName:
+	var unfinished_npc_id: StringName = &""
+	var required_npc_id := StringName(str(npcs_by_id[npc_id].get("requires", "")))
+	for _step in range(npcs_by_id.size()):
+		if not npcs_by_id.has(required_npc_id):
+			break
+		var checkpoint: Dictionary = player_state.call("get_dialogue_checkpoint", int(level_data.get("levelId", 0)), str(required_npc_id))
+		if not bool(checkpoint.get("completed", false)):
+			unfinished_npc_id = required_npc_id
+		required_npc_id = StringName(str(npcs_by_id[required_npc_id].get("requires", "")))
+	return unfinished_npc_id
+
+
+func _build_talk_first_notice(npc_id: StringName) -> String:
+	var npc_data: Dictionary = npcs_by_id[npc_id]
+	return str(npc_data.get("talkFirstMessage", "Please talk to %s first!" % npc_data.get("name", npc_id)))
 
 
 func _find_dialogue_index(dialogue_id: int) -> int:

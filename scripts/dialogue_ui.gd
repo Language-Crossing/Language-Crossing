@@ -2,6 +2,7 @@ extends CanvasLayer
 
 const BLANK_TOKEN := "[blank]"
 const BLANK_DISPLAY := "_____"
+const REPLAY_CONFIRMATION := "You've already completed this interaction. Do you want to start it again? You won't gain more XP for this."
 
 @export var level_controller_path: NodePath = NodePath("..")
 @export_range(16, 48) var dialogue_font_size := 24
@@ -54,15 +55,34 @@ func _on_dialogue_started(context: Dictionary) -> void:
 	pending_result.clear()
 	speaker_name.text = str(context.get("npcName", ""))
 	_log_dialogue_ui("Showing conversation with %s" % speaker_name.text)
-	if bool(context.get("completed", false)):
+	var notice := str(context.get("notice", ""))
+	if not notice.is_empty():
 		current_dialogue.clear()
-		dialogue_text.text = "You have completed this conversation."
+		dialogue_text.text = notice
 		_clear_options()
+		return
+
+	if bool(context.get("completed", false)):
+		_show_replay_confirmation()
 		return
 
 	var dialogue: Variant = context.get("dialogue", {})
 	if dialogue is Dictionary:
 		_show_dialogue(dialogue)
+
+
+func _show_replay_confirmation() -> void:
+	current_dialogue.clear()
+	dialogue_text.text = REPLAY_CONFIRMATION
+	_clear_options()
+	_add_action_button("Yes", _on_replay_confirmed)
+	_add_action_button("No", _close_dialogue)
+	options_container.columns = 2
+
+
+func _on_replay_confirmed() -> void:
+	if level_controller != null:
+		level_controller.call("replay_dialogue")
 
 
 func _show_dialogue(dialogue: Dictionary) -> void:
