@@ -125,6 +125,10 @@ func set_dialogue_checkpoint(target_level_id: int, npc_id: String, dialogue_id: 
 	dialogue_progress[level_key] = level_checkpoints
 
 
+func add_xp(amount: int) -> void:
+	xp += amount
+
+
 func add_dictionary_entries(entries: Array) -> void:
 	var learned_entries: Array = dictionary.get("dictionary", [])
 	for entry in entries:

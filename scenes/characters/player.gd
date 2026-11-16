@@ -3,7 +3,10 @@ extends "res://scenes/characters/character.gd"
 func _physics_process(_delta):
 	# 1. Fetch directional input vector using your Input Map action names
 	# (negative_x, positive_x, negative_y, positive_y)
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	# Open conversations and the dictionary hold the player in place.
+	var input_dir = Vector2.ZERO
+	if not MovementBlockers.is_blocking(get_tree()):
+		input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	# 2. Apply movement velocity
 	if input_dir != Vector2.ZERO:
 		velocity = input_dir * SPEED

@@ -16,6 +16,7 @@ region = Rect2(464, 208, 16, 16)
 
 [node name="DictionaryButton" type="TextureButton"]
 custom_minimum_size = Vector2(64, 64)
+focus_mode = 0
 texture_filter = 1
 tooltip_text = "Dictionary"
 texture_normal = SubResource("AtlasTexture_normal")

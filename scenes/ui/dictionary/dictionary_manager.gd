@@ -5,8 +5,8 @@ extends Node
 ## The words themselves live in PlayerState.dictionary and are written to PlayerState's
 ## save file, so there is one save and F8 (reset progress) resets the dictionary too.
 ## New players start with the words in configs/Player/dictionary.json (currently none).
-## In the game, words arrive from dialogue: base_level.gd calls add_level_entry() for each
-## word in a question's "dictionary" list when the player answers it correctly.
+## In the game, words arrive from dialogue: base_level.gd calls add_level_entry() with the
+## "learns" entry on the option the player picked, when that option is the correct answer.
 ##
 ## Entry shape matches configs/Player/dictionary.json:
 ##   { "spanishWord": "Hola", "englishWord": "Hello", "partOfSpeech": "interjection" (optional) }
@@ -64,7 +64,7 @@ func add_word(spanish: String, english: String, part_of_speech: String = "") -> 
 	return true
 
 
-## Same as add_word, for an entry from a level JSON "dictionary" array. Accepts either key style:
+## Same as add_word, for a level JSON "learns" entry. Accepts either key style:
 ##   { "spanish": "Hola", "english": "Hello", "partOfSpeech": "interjection" }
 ##   { "spanishWord": "Hola", "englishWord": "Hello" }
 func add_level_entry(level_entry: Dictionary) -> bool:
