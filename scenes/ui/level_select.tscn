@@ -43,6 +43,15 @@ theme_override_colors/font_color = Color(0.36078432, 0.18039216, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "Level 1"
 
+[node name="Label2" type="Label" parent="CanvasLayer/Level-1-Card" unique_id=22576762]
+offset_left = 204.0
+offset_top = 276.0
+offset_right = 353.0
+offset_bottom = 321.0
+theme_override_colors/font_color = Color(0.36078432, 0.18039216, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Greetings"
+
 [node name="Area2D" type="Area2D" parent="CanvasLayer/Level-1-Card" unique_id=159609883]
 script = ExtResource("3_ccmqc")
 level_scene = "uid://cwfvk61kahsxx"
@@ -59,7 +68,9 @@ position = Vector2(279.5, 428)
 shape = SubResource("RectangleShape2D_e50kr")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=914541468]
-offset_right = 1293.0
-offset_bottom = 719.0
+offset_left = -7.0
+offset_top = 23.0
+offset_right = 1286.0
+offset_bottom = 742.0
 mouse_filter = 2
 color = Color(0.36078432, 0.18039216, 0, 1)
