@@ -21,6 +21,9 @@ const REPLAY_CONFIRMATION := "You've already completed this interaction. Do you 
 var level_controller: Node
 var current_dialogue: Dictionary = {}
 var pending_result: Dictionary = {}
+var delivery_exchange: Array = []
+var delivery_exchange_index := 0
+var delivery_npc_name := ""
 
 
 func _ready() -> void:
@@ -53,13 +56,21 @@ func _connect_controller_signal(signal_name: String, handler: Callable) -> void:
 func _on_dialogue_started(context: Dictionary) -> void:
 	ui_root.show()
 	pending_result.clear()
+	delivery_exchange.clear()
+	delivery_exchange_index = 0
 	speaker_name.text = str(context.get("npcName", ""))
+	delivery_npc_name = speaker_name.text
 	_log_dialogue_ui("Showing conversation with %s" % speaker_name.text)
 	var notice := str(context.get("notice", ""))
 	if not notice.is_empty():
 		current_dialogue.clear()
 		dialogue_text.text = notice
 		_clear_options()
+		return
+
+	var exchange: Variant = context.get("exchange", [])
+	if exchange is Array and not exchange.is_empty():
+		_show_delivery_exchange(exchange)
 		return
 
 	if bool(context.get("completed", false)):
@@ -69,6 +80,35 @@ func _on_dialogue_started(context: Dictionary) -> void:
 	var dialogue: Variant = context.get("dialogue", {})
 	if dialogue is Dictionary:
 		_show_dialogue(dialogue)
+
+
+func _show_delivery_exchange(exchange: Array) -> void:
+	current_dialogue.clear()
+	delivery_exchange = exchange.duplicate(true)
+	delivery_exchange_index = 0
+	_show_delivery_exchange_line()
+
+
+func _show_delivery_exchange_line() -> void:
+	if delivery_exchange_index < 0 or delivery_exchange_index >= delivery_exchange.size():
+		return
+	var line: Variant = delivery_exchange[delivery_exchange_index]
+	if not line is Dictionary:
+		push_error("Task delivery dialogue line must be an object")
+		return
+
+	speaker_name.text = "Player" if str(line.get("speaker", "")) == "player" else delivery_npc_name
+	dialogue_text.text = str(line.get("text", ""))
+	_clear_options()
+	_add_action_button("Continue", _advance_delivery_exchange)
+
+
+func _advance_delivery_exchange() -> void:
+	delivery_exchange_index += 1
+	if delivery_exchange_index < delivery_exchange.size():
+		_show_delivery_exchange_line()
+	elif level_controller != null:
+		level_controller.call("finish_task_delivery_dialogue")
 
 
 func _show_replay_confirmation() -> void:
@@ -87,6 +127,7 @@ func _on_replay_confirmed() -> void:
 
 func _show_dialogue(dialogue: Dictionary) -> void:
 	current_dialogue = dialogue.duplicate(true)
+	speaker_name.text = str(current_dialogue.get("speaker", delivery_npc_name))
 	dialogue_text.text = str(current_dialogue.get("question", "")).replace(BLANK_TOKEN, BLANK_DISPLAY)
 	_clear_options()
 
@@ -124,6 +165,7 @@ func _on_choice_pressed(option_index: int) -> void:
 
 func _on_dialogue_choice_resolved(result: Dictionary) -> void:
 	pending_result = result.duplicate(true)
+	speaker_name.text = delivery_npc_name
 	var response := str(result.get("response", "")).strip_edges()
 	var is_correct := bool(result.get("isCorrect", false))
 	# Only quiz questions get "Try again"; a non-answer like "No, I need more time" keeps "Continue".
@@ -137,12 +179,6 @@ func _on_dialogue_choice_resolved(result: Dictionary) -> void:
 		_continue_dialogue()
 		return
 
-	# A correct fill-in-the-blank shows the completed sentence above the reply.
-	var question := str(current_dialogue.get("question", ""))
-	var blank_fill := str(result.get("blankFill", "")).strip_edges()
-	if is_correct and question.contains(BLANK_TOKEN) and not blank_fill.is_empty():
-		response = "%s\n%s" % [question.replace(BLANK_TOKEN, blank_fill), response]
-
 	dialogue_text.text = response
 	_clear_options()
 	_add_action_button("Try again" if is_retry else "Continue", _continue_dialogue)
@@ -152,7 +188,7 @@ func _continue_dialogue() -> void:
 	var is_correct := bool(pending_result.get("isCorrect", false))
 	# Declining a non-quiz question ends the talk; the checkpoint stays, so it resumes here next time.
 	var declined := not is_correct and str(current_dialogue.get("kind", "")) != "quiz"
-	if bool(pending_result.get("completed", false)) or declined:
+	if bool(pending_result.get("completed", false)) or bool(pending_result.get("pauseForTask", false)) or declined:
 		_close_dialogue()
 		return
 
@@ -195,6 +231,8 @@ func _on_dialogue_closed() -> void:
 	ui_root.hide()
 	current_dialogue.clear()
 	pending_result.clear()
+	delivery_exchange.clear()
+	delivery_exchange_index = 0
 
 
 func _log_dialogue_ui(message: String) -> void:

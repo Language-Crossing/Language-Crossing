@@ -11,6 +11,7 @@ var interact_area: Area2D
 
 func _ready() -> void:
 	super._ready()
+	add_to_group("interactable_npcs")
 	_create_interact_area()
 
 func _create_interact_area() -> void:
