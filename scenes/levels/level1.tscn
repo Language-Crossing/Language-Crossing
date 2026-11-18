@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d1oe4ug5jdu25" path="res://scenes/characters/character.tscn" id="19_teacher"]
 [ext_resource type="Script" path="res://scripts/levels/behavior/interactable_object.gd" id="20_object"]
 [ext_resource type="PackedScene" path="res://scenes/ui/task_list.tscn" id="21_task_list"]
+[ext_resource type="PackedScene" path="res://scenes/ui/gameplay_menu.tscn" id="22_gameplay_menu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4tcl0"]
 texture = ExtResource("1_x6ivy")
@@ -880,5 +881,7 @@ interact_radius = 30.0
 [node name="DictionaryHUD" parent="." unique_id=1989522834 instance=ExtResource("2_dicthud")]
 
 [node name="TaskList" parent="." instance=ExtResource("21_task_list")]
+
+[node name="GameplayMenu" parent="." instance=ExtResource("22_gameplay_menu")]
 
 [node name="Node2D" parent="." unique_id=2109147346 instance=ExtResource("8_8a7m2")]
