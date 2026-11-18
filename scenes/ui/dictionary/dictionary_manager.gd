@@ -9,7 +9,8 @@ extends Node
 ## "learns" entry on the option the player picked, when that option is the correct answer.
 ##
 ## Entry shape matches configs/Player/dictionary.json:
-##   { "spanishWord": "Hola", "englishWord": "Hello", "partOfSpeech": "interjection" (optional) }
+##   { "spanishWord": "Hola", "englishWord": "Hello", "partOfSpeech": "interjection" (optional),
+##     "source": "fishing" (optional; left out for words from the story) }
 
 ## Emitted after a word is actually saved (not for duplicates).
 signal word_added(entry: Dictionary)
@@ -50,13 +51,12 @@ func has_word(spanish: String) -> bool:
 
 
 ## Saves a word. Returns false if it was empty or already in the dictionary.
-func add_word(spanish: String, english: String, part_of_speech: String = "") -> bool:
+## source says where it was learned outside the story, e.g. "fishing".
+func add_word(spanish: String, english: String, part_of_speech: String = "", source: String = "") -> bool:
 	spanish = spanish.strip_edges()
 	if spanish.is_empty() or has_word(spanish):
 		return false
-	var entry := {"spanishWord": spanish, "englishWord": english.strip_edges()}
-	if not part_of_speech.is_empty():
-		entry["partOfSpeech"] = part_of_speech
+	var entry := _make_entry(spanish, english, part_of_speech, source)
 	_entries().append(entry)
 	PlayerState.save_game()
 	word_added.emit(entry)
@@ -71,19 +71,17 @@ func add_level_entry(level_entry: Dictionary) -> bool:
 	return add_word(
 		str(level_entry.get("spanish", level_entry.get("spanishWord", ""))),
 		str(level_entry.get("english", level_entry.get("englishWord", ""))),
-		str(level_entry.get("partOfSpeech", ""))
+		str(level_entry.get("partOfSpeech", "")),
+		str(level_entry.get("source", ""))
 	)
 
 
 ## Call this after an interaction to ask "do you want to save this word?".
 ## Does nothing if the word is already saved. The prompt in dictionary_hud.tscn shows it.
-func offer_word(spanish: String, english: String, part_of_speech: String = "") -> void:
+func offer_word(spanish: String, english: String, part_of_speech: String = "", source: String = "") -> void:
 	if spanish.strip_edges().is_empty() or has_word(spanish):
 		return
-	var entry := {"spanishWord": spanish.strip_edges(), "englishWord": english.strip_edges()}
-	if not part_of_speech.is_empty():
-		entry["partOfSpeech"] = part_of_speech
-	word_offered.emit(entry)
+	word_offered.emit(_make_entry(spanish, english, part_of_speech, source))
 
 
 # --- Debug helpers (only wired up in debug builds, see dictionary_hud.gd) ---
@@ -104,6 +102,15 @@ func debug_clear() -> void:
 
 
 # --- Internals ---
+
+func _make_entry(spanish: String, english: String, part_of_speech: String, source: String) -> Dictionary:
+	var entry := {"spanishWord": spanish.strip_edges(), "englishWord": english.strip_edges()}
+	if not part_of_speech.is_empty():
+		entry["partOfSpeech"] = part_of_speech
+	if not source.is_empty():
+		entry["source"] = source
+	return entry
+
 
 ## The live word list inside PlayerState. Edits to it are saved by PlayerState.save_game().
 func _entries() -> Array:
