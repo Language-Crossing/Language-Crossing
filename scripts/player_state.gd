@@ -12,6 +12,8 @@ var xp := 0
 var dictionary: Dictionary = {}
 var inventory: Dictionary = {}
 var dialogue_progress: Dictionary = {}
+## Per-mini-game save data, keyed by name, e.g. minigames["fishing"]. Each game owns its own shape.
+var minigames: Dictionary = {}
 
 
 func _ready() -> void:
@@ -29,6 +31,7 @@ func load_game() -> void:
 	var default_inventory: Variant = ConfigHelpers.read_config("Player/inventory.json", {"inventory": []})
 	var saved_state: Variant = ConfigHelpers.read_save(SAVE_FILE, {})
 	var has_global_save: bool = saved_state is Dictionary and not saved_state.is_empty()
+	minigames = {}
 
 	var player_data: Variant
 	var dictionary_data: Variant
@@ -37,6 +40,9 @@ func load_game() -> void:
 		player_data = saved_state.get("player", default_player)
 		dictionary_data = saved_state.get("dictionary", default_dictionary)
 		inventory_data = saved_state.get("inventory", default_inventory)
+		var saved_minigames: Variant = saved_state.get("minigames", {})
+		if saved_minigames is Dictionary:
+			minigames = saved_minigames
 	else:
 		player_data = ConfigHelpers.read_save("player.json", default_player)
 		dictionary_data = ConfigHelpers.read_save("dictionary.json", default_dictionary)
@@ -71,6 +77,7 @@ func reset_progress(restart_current_scene: bool = false) -> bool:
 	progress = int(default_player.get("progress", 0))
 	xp = int(default_player.get("XP", 0))
 	dialogue_progress.clear()
+	minigames = {}
 	dictionary = _dictionary_or_fallback(default_dictionary, {"dictionary": []})
 	inventory = _dictionary_or_fallback(default_inventory, {"inventory": []})
 
@@ -87,7 +94,8 @@ func save_game() -> bool:
 	var saved := ConfigHelpers.write_save(SAVE_FILE, {
 		"player": get_player_data(),
 		"dictionary": dictionary,
-		"inventory": inventory
+		"inventory": inventory,
+		"minigames": minigames
 	})
 	if saved:
 		state_saved.emit()
@@ -123,6 +131,13 @@ func set_dialogue_checkpoint(target_level_id: int, npc_id: String, dialogue_id: 
 		"completed": completed
 	}
 	dialogue_progress[level_key] = level_checkpoints
+
+
+## The live save data for one mini-game. Changes to it are written by save_game().
+func get_minigame_data(minigame: String) -> Dictionary:
+	if not minigames.get(minigame) is Dictionary:
+		minigames[minigame] = {}
+	return minigames[minigame]
 
 
 func add_xp(amount: int) -> void:

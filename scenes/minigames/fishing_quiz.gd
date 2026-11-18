@@ -1,7 +1,9 @@
 extends Node
 ## Asks a word question each time a fish is caught.
 ##
-## Questions are about words already in the dictionary. Some catches instead carry a
+## Questions are about words already in the dictionary, and words the player has
+## missed come up more often: right/wrong counts per word are saved under
+## PlayerState.minigames["fishing"]["words"]. Some catches instead carry a
 ## fishing-only word (scripts/levels/content/fishing.json): it is shown with its meaning,
 ## then offered through the "Save this word?" prompt. A word the player skips stays new
 ## and is offered again on a later catch; once saved, it is quizzed like any other word.
@@ -57,7 +59,7 @@ func ask_question() -> bool:
 		return false
 
 	_teaching = false
-	_current_word = known.pick_random()
+	_current_word = _pick_weighted(known)
 	# Fishing words make good wrong answers even before they are learned.
 	var dialogue := _build_question(_current_word, known + _fishing_words)
 	if dialogue.is_empty():
@@ -87,6 +89,7 @@ func choose_dialogue_option(option_index: int) -> Dictionary:
 		return taught
 	var spanish := str(_current_word.get("spanishWord", ""))
 	var english := str(_current_word.get("englishWord", ""))
+	_record_answer(spanish, is_correct)
 	var response := ""
 	if is_correct:
 		response = "¡Correcto! You keep the fish. '%s' means '%s'." % [spanish, english]
@@ -115,6 +118,51 @@ func close_dialogue() -> void:
 	_current_word = {}
 	_current_options = []
 	dialogue_closed.emit()
+
+
+## Missed words are more likely, well-known ones less: weight = (1 + 2 x wrong) / (1 + right).
+func _pick_weighted(words: Array[Dictionary]) -> Dictionary:
+	var weights: Array[float] = []
+	var total := 0.0
+	for word in words:
+		var weight := word_weight(str(word.get("spanishWord", "")))
+		weights.append(weight)
+		total += weight
+	var roll := randf() * total
+	for i in words.size():
+		roll -= weights[i]
+		if roll <= 0.0:
+			return words[i]
+	return words.back()
+
+
+func word_weight(spanish: String) -> float:
+	var stats := word_stats(spanish)
+	return (1.0 + 2.0 * stats["wrong"]) / (1.0 + stats["right"])
+
+
+## Read-only: asking about a word never adds anything to the save.
+func word_stats(spanish: String) -> Dictionary:
+	var data: Variant = PlayerState.minigames.get(SOURCE, {})
+	var words: Variant = data.get("words", {}) if data is Dictionary else {}
+	var saved: Variant = words.get(spanish.to_lower(), {}) if words is Dictionary else {}
+	if not saved is Dictionary:
+		saved = {}
+	return {"right": int(saved.get("right", 0)), "wrong": int(saved.get("wrong", 0))}
+
+
+func _record_answer(spanish: String, is_correct: bool) -> void:
+	var stats := word_stats(spanish)
+	stats["right" if is_correct else "wrong"] += 1
+	_all_word_stats()[spanish.to_lower()] = stats
+	PlayerState.save_game()
+
+
+func _all_word_stats() -> Dictionary:
+	var data: Dictionary = PlayerState.get_minigame_data(SOURCE)
+	if not data.get("words") is Dictionary:
+		data["words"] = {}
+	return data["words"]
 
 
 func _known_words() -> Array[Dictionary]:
