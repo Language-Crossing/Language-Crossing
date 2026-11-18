@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var tool_sprite = $Tool2D
+## Float bobbing and the "got away" message (scenes/minigames/fishing_cues.gd).
+@onready var cues = $FishingCues
 ## Relative to the player, so the fishing scene can be renamed or rearranged.
 @export var fishing_game_path: NodePath = NodePath("../CanvasLayer/FishingGame")
 @onready var fishing_minigame = get_node(fishing_game_path)
@@ -113,6 +115,7 @@ func start_waiting():
 
 	animated_sprite_2d.play("idle")
 	tool_sprite.play("idle")
+	cues.show_float()
 
 	var wait_time = randf_range(2.0, 5.0)
 
@@ -124,6 +127,7 @@ func start_waiting():
 
 func fish_bites():
 	fishing_state = FishingState.BITE
+	cues.start_bite()
 
 	print("A fish is biting!")
 
@@ -137,6 +141,7 @@ func fish_bites():
 
 func start_reeling():
 	fishing_state = FishingState.REELING
+	cues.hide_float()
 
 	animated_sprite_2d.play("reeling")
 	tool_sprite.play("reeling")
@@ -165,6 +170,7 @@ func catch_fish():
 
 func fail_fishing():
 	fishing_state = FishingState.FAILED
+	cues.show_message("The fish got away...")
 
 	print("The fish got away!")
 
@@ -172,6 +178,7 @@ func fail_fishing():
 
 
 func end_fishing():
+	cues.hide_float()
 	fishing_minigame.close_minigame()
 	fishing_state = FishingState.IDLE
 

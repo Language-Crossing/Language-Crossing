@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c3wgtaq4t075x" path="res://assets/tilesets/character/base_casting_strip15.png" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://b1jlwb5twnkaw" path="res://scenes/minigames/player.gd" id="1_dw050"]
+[ext_resource type="Script" path="res://scenes/minigames/fishing_cues.gd" id="9_cues"]
 [ext_resource type="Texture2D" uid="uid://ch0co1dr8508m" path="res://assets/tilesets/character/base_caught_strip10.png" id="2_dw050"]
 [ext_resource type="Texture2D" uid="uid://chojsta02rnc6" path="res://assets/tilesets/character/base_idle_strip9.png" id="3_b26j0"]
 [ext_resource type="Texture2D" uid="uid://bro6o7osgqh24" path="res://assets/tilesets/character/base_reeling_strip13.png" id="4_n7ghd"]
@@ -734,6 +735,9 @@ sprite_frames = SubResource("SpriteFrames_f2kpx")
 animation = &"caught"
 frame = 9
 frame_progress = 1.0
+
+[node name="FishingCues" type="Node2D" parent="." unique_id=100000513]
+script = ExtResource("9_cues")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=486992471]
 shape = SubResource("RectangleShape2D_wvhok")
