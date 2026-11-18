@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dkaego0u0vhsi" path="res://scenes/minigames/player.tscn" id="2_yuodq"]
 [ext_resource type="PackedScene" uid="uid://bhyhxg0hp5vdo" path="res://scenes/minigames/fishing_spot.tscn" id="3_f131e"]
 [ext_resource type="PackedScene" uid="uid://b27g0kth52ijp" path="res://scenes/minigames/fishing_game.tscn" id="4_e1u82"]
+[ext_resource type="PackedScene" uid="uid://dme1u0cx78oj3" path="res://assets/Menu/Menu.tscn" id="5_menu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uyqam"]
 texture = ExtResource("1_uyqam")
@@ -283,3 +284,5 @@ unique_name_in_owner = true
 position = Vector2(311.5, 257)
 rotation = 1.5707964
 scale = Vector2(1, 1.45)
+
+[node name="PauseMenu" parent="." unique_id=1873402219 instance=ExtResource("5_menu")]

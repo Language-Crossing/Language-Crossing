@@ -2,8 +2,9 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var tool_sprite = $Tool2D
-@onready var fishing_minigame = \
-	get_node("/root/WorldRoot/CanvasLayer/FishingGame")
+## Relative to the player, so the fishing scene can be renamed or rearranged.
+@export var fishing_game_path: NodePath = NodePath("../CanvasLayer/FishingGame")
+@onready var fishing_minigame = get_node(fishing_game_path)
 
 const SPEED := 100.0
 
@@ -28,12 +29,15 @@ func _physics_process(_delta: float) -> void:
 		move_and_slide()
 		return
 
-	var direction := Input.get_vector(
-	"ui_left",
-	"ui_right",
-	"ui_up",
-	"ui_down"
-	)
+	# Open questions, the dictionary and save prompts hold the player in place.
+	var direction := Vector2.ZERO
+	if not MovementBlockers.is_blocking(get_tree()):
+		direction = Input.get_vector(
+		"ui_left",
+		"ui_right",
+		"ui_up",
+		"ui_down"
+		)
 
 	velocity = direction * SPEED
 	
@@ -53,7 +57,7 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func _process(_delta):
-	if Input.is_action_just_pressed("interact"):
+	if Input.is_action_just_pressed("interact") and not MovementBlockers.is_blocking(get_tree()):
 
 		if fishing_state == FishingState.IDLE:
 			if can_fish:
@@ -112,7 +116,8 @@ func start_waiting():
 
 	var wait_time = randf_range(2.0, 5.0)
 
-	await get_tree().create_timer(wait_time).timeout
+	# false: the wait stops while the game is paused.
+	await get_tree().create_timer(wait_time, false).timeout
 
 	fish_bites()
 
@@ -124,7 +129,7 @@ func fish_bites():
 
 	var bite_window = 1.5
 
-	await get_tree().create_timer(bite_window).timeout
+	await get_tree().create_timer(bite_window, false).timeout
 
 	if fishing_state == FishingState.BITE:
 		fail_fishing()
