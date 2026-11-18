@@ -34,9 +34,9 @@ func _on_start_button_pressed() -> void:
 		toggle_pause()
 		print("resuming game")
 	else:
-		var level1 = "res://scenes/levels/level1.tscn"
-		get_tree().change_scene_to_file(level1)
-		print("loading " + level1)
+		var levelSelect = "res://scenes/ui/level_select.tscn"
+		get_tree().change_scene_to_file(levelSelect)
+		print("loading " + levelSelect)
 
 func _on_options_button_pressed() -> void:
 	print("options")
