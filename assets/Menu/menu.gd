@@ -1,7 +1,10 @@
 extends CanvasLayer
 var is_pause_menu: bool = false
 
+const LEVEL_SELECT := "res://scenes/ui/level_select.tscn"
+
 @onready var start_button: TextureButton = $Control/StartButton
+@onready var options_button: TextureButton = $Control/OptionsButton
 @onready var exit_button: TextureButton = $Control/ExitButton
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,6 +15,8 @@ func _ready() -> void:
 	if is_pause_menu:
 		hide()
 		start_button.label.text = "Resume"
+		# There are no options yet, so in the pause menu this slot leads back to level select.
+		options_button.label.text = "Levels"
 	else:
 		show()
 		start_button.label.text = "Start"
@@ -34,11 +39,15 @@ func _on_start_button_pressed() -> void:
 		toggle_pause()
 		print("resuming game")
 	else:
-		var levelSelect = "res://scenes/ui/level_select.tscn"
-		get_tree().change_scene_to_file(levelSelect)
-		print("loading " + levelSelect)
+		get_tree().change_scene_to_file(LEVEL_SELECT)
+		print("loading " + LEVEL_SELECT)
 
 func _on_options_button_pressed() -> void:
+	if is_pause_menu:
+		# Unpause first, or the next scene would start frozen.
+		get_tree().paused = false
+		get_tree().change_scene_to_file(LEVEL_SELECT)
+		return
 	print("options")
 
 func _on_exit_button_pressed() -> void:

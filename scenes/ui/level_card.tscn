@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/level_card.gd" id="1_card"]
+[ext_resource type="Texture2D" uid="uid://nduh1it5rnn5" path="res://assets/tilesets/UiCozyFree.png" id="2_cozy"]
+[ext_resource type="Texture2D" uid="uid://jbb1qbgydxhk" path="res://assets/tilesets/Sprout Lands - UI Pack - Basic pack/Sprite sheets/UI Big Play Button.png" id="3_play"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_card"]
+atlas = ExtResource("2_cozy")
+region = Rect2(98.333336, 163.5, 64.166664, 90.75)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_play"]
+atlas = ExtResource("3_play")
+region = Rect2(0, 32, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_play_pressed"]
+atlas = ExtResource("3_play")
+region = Rect2(96, 32, 96, 32)
+
+[node name="LevelCard" type="Control"]
+custom_minimum_size = Vector2(320, 372)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 372.0
+script = ExtResource("1_card")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_card")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 66.0
+offset_bottom = 111.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.36078432, 0.18039216, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 122.0
+offset_bottom = 167.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.36078432, 0.18039216, 0, 1)
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_top = 247.0
+offset_right = 93.0
+offset_bottom = 309.0
+grow_horizontal = 2
+texture_normal = SubResource("AtlasTexture_play")
+texture_pressed = SubResource("AtlasTexture_play_pressed")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="LockedLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 40.0
+offset_top = 232.0
+offset_right = -40.0
+offset_bottom = 322.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.36078432, 0.18039216, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Locked"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
