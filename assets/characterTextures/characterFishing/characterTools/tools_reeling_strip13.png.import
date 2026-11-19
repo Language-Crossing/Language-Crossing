@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwokob7gosro2"
-path="res://.godot/imported/tools_reeling_strip13.png-b18be3b2bdb6163997d12b9246c68758.ctex"
+path="res://.godot/imported/tools_reeling_strip13.png-d07c9f45a3dbf27576233c809d72c40a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tilesets/character/tools_reeling_strip13.png"
-dest_files=["res://.godot/imported/tools_reeling_strip13.png-b18be3b2bdb6163997d12b9246c68758.ctex"]
+source_file="res://assets/characterTextures/characterFishing/characterTools/tools_reeling_strip13.png"
+dest_files=["res://.godot/imported/tools_reeling_strip13.png-d07c9f45a3dbf27576233c809d72c40a.ctex"]
 
 [params]
 

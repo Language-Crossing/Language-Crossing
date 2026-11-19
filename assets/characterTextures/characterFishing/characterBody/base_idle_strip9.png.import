@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chojsta02rnc6"
-path="res://.godot/imported/base_idle_strip9.png-a0f68016a5e3f697e5a76d36880eb7e5.ctex"
+path="res://.godot/imported/base_idle_strip9.png-605998d3809e748bc1b44385e197c9fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tilesets/character/base_idle_strip9.png"
-dest_files=["res://.godot/imported/base_idle_strip9.png-a0f68016a5e3f697e5a76d36880eb7e5.ctex"]
+source_file="res://assets/characterTextures/characterFishing/characterBody/base_idle_strip9.png"
+dest_files=["res://.godot/imported/base_idle_strip9.png-605998d3809e748bc1b44385e197c9fa.ctex"]
 
 [params]
 

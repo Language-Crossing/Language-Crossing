@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s6bclfhpsegq"
-path="res://.godot/imported/tools_caught_strip10.png-ae729804fd675f0c36a499858ba6814c.ctex"
+uid="uid://c3wgtaq4t075x"
+path="res://.godot/imported/base_casting_strip15.png-90b62db63448093e414c6ebd82184a1e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tilesets/character/tools_caught_strip10.png"
-dest_files=["res://.godot/imported/tools_caught_strip10.png-ae729804fd675f0c36a499858ba6814c.ctex"]
+source_file="res://assets/characterTextures/characterFishing/characterBody/base_casting_strip15.png"
+dest_files=["res://.godot/imported/base_casting_strip15.png-90b62db63448093e414c6ebd82184a1e.ctex"]
 
 [params]
 

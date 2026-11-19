@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://cfmgemsb5gd0a"]
+
+[ext_resource type="Script" uid="uid://4uceqo6e5abj" path="res://scenes/minigames/translation_challenge.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b1kygy01qc5rc" path="res://assets/tilesets/fishingbar/fish.png" id="2_fish"]
+[ext_resource type="FontFile" uid="uid://s86v44e0rflv" path="res://assets/Fonts/berkshireSwash/BerkshireSwash-Regular.ttf" id="3_font"]
+
+[node name="TranslationChallenge" type="CanvasLayer" unique_id=1142246204]
+layer = 11
+visible = false
+script = ExtResource("1_script")
+
+[node name="Root" type="Control" parent="." unique_id=335726435]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Dim" type="ColorRect" parent="Root" unique_id=2007422205]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Center" type="CenterContainer" parent="Root" unique_id=730360176]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Root/Center" unique_id=1112805615]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Root/Center/Panel" unique_id=1251369394]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="Layout" type="VBoxContainer" parent="Root/Center/Panel/Margin" unique_id=233924278]
+custom_minimum_size = Vector2(440, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Root/Center/Panel/Margin/Layout" unique_id=326316983]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 26
+text = "Translate to land the fish!"
+horizontal_alignment = 1
+
+[node name="FishTexture" type="TextureRect" parent="Root/Center/Panel/Margin/Layout" unique_id=825125396]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(248, 96)
+layout_mode = 2
+texture = ExtResource("2_fish")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="WordLabel" type="Label" parent="Root/Center/Panel/Margin/Layout" unique_id=645963291]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 48
+text = "Palabra"
+horizontal_alignment = 1
+
+[node name="PartOfSpeechLabel" type="Label" parent="Root/Center/Panel/Margin/Layout" unique_id=453909579]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.6)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="AnswerEdit" type="LineEdit" parent="Root/Center/Panel/Margin/Layout" unique_id=877299012]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+placeholder_text = "Type the English translation"
+alignment = 1
+
+[node name="FeedbackLabel" type="Label" parent="Root/Center/Panel/Margin/Layout" unique_id=592589602]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="SubmitButton" type="Button" parent="Root/Center/Panel/Margin/Layout" unique_id=1973323890]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+focus_mode = 0
+text = "Reel it in!"
