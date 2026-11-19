@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://pq8i2ysjh7hn"]
+
+[ext_resource type="Script" uid="uid://cuwxvrmata475" path="res://scenes/ui/task_list.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://b8smb7cea4tts" path="res://assets/UI/pixel-ui-free-1.0.2/addons/pixel_ui/themes/wood.tres" id="2_theme"]
+
+[node name="TaskList" type="CanvasLayer" unique_id=2062566308]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="ProgressPanel" type="PanelContainer" parent="." unique_id=1936731622]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_top = 12.0
+offset_right = 170.0
+offset_bottom = 68.0
+grow_horizontal = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="ProgressMargin" type="MarginContainer" parent="ProgressPanel" unique_id=1381729952]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="ProgressContent" type="VBoxContainer" parent="ProgressPanel/ProgressMargin" unique_id=84511987]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="ProgressBar" type="ProgressBar" parent="ProgressPanel/ProgressMargin/ProgressContent" unique_id=1502831014]
+custom_minimum_size = Vector2(300, 18)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"GoldBar"
+show_percentage = false
+
+[node name="ProgressLabel" type="Label" parent="ProgressPanel/ProgressMargin/ProgressContent" unique_id=1056232034]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 12
+text = "0 / 0 tasks complete"
+horizontal_alignment = 1
+
+[node name="TaskPanel" type="PanelContainer" parent="." unique_id=257058848]
+visible = false
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 316.0
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="Margin" type="MarginContainer" parent="TaskPanel" unique_id=590501078]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="Content" type="VBoxContainer" parent="TaskPanel/Margin" unique_id=1996596326]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Heading" type="Label" parent="TaskPanel/Margin/Content" unique_id=135818893]
+layout_mode = 2
+theme_type_variation = &"Title"
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 16
+text = "Current Tasks"
+
+[node name="Separator" type="HSeparator" parent="TaskPanel/Margin/Content" unique_id=1136776242]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TaskRows" type="VBoxContainer" parent="TaskPanel/Margin/Content" unique_id=1693350388]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8

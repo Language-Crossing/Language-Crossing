@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://c1ccccx5mefge" path="res://scripts/levels/behavior/interactable_npc.gd" id="17_npc"]
 [ext_resource type="PackedScene" uid="uid://bpsnrnitln3mh" path="res://scenes/ui/dialogue_ui.tscn" id="18_dialogue_ui"]
 [ext_resource type="PackedScene" uid="uid://d1oe4ug5jdu25" path="res://scenes/characters/character.tscn" id="19_teacher"]
+[ext_resource type="Script" path="res://scripts/levels/behavior/interactable_object.gd" id="20_object"]
+[ext_resource type="PackedScene" path="res://scenes/ui/task_list.tscn" id="21_task_list"]
+[ext_resource type="PackedScene" path="res://scenes/ui/gameplay_menu.tscn" id="22_gameplay_menu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4tcl0"]
 texture = ExtResource("1_x6ivy")
@@ -852,8 +855,33 @@ body_type = "umber"
 outfit_type = "light_blue_armor"
 head_type = "brown_hat"
 
+[node name="BookInteraction" type="Node2D" parent="."]
+position = Vector2(430, 145)
+script = ExtResource("20_object")
+object_id = &"library_book"
+object_name = "Book"
+interact_radius = 30.0
+
+[node name="PlantInteraction" type="Node2D" parent="."]
+position = Vector2(624, 168)
+script = ExtResource("20_object")
+object_id = &"library_plant"
+object_name = "Plant"
+interact_radius = 30.0
+
+[node name="ChairInteraction" type="Node2D" parent="."]
+position = Vector2(252, 204)
+script = ExtResource("20_object")
+object_id = &"library_chair"
+object_name = "Chair"
+interact_radius = 30.0
+
 [node name="DialogueUI" parent="." unique_id=940229574 instance=ExtResource("18_dialogue_ui")]
 
 [node name="DictionaryHUD" parent="." unique_id=1989522834 instance=ExtResource("2_dicthud")]
+
+[node name="TaskList" parent="." instance=ExtResource("21_task_list")]
+
+[node name="GameplayMenu" parent="." instance=ExtResource("22_gameplay_menu")]
 
 [node name="Node2D" parent="." unique_id=2109147346 instance=ExtResource("8_8a7m2")]
