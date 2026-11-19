@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scenes/minigames/fishing_quiz.gd" id="6_quiz"]
 [ext_resource type="PackedScene" uid="uid://bpsnrnitln3mh" path="res://scenes/ui/dialogue_ui.tscn" id="7_dialogue"]
 [ext_resource type="PackedScene" path="res://scenes/ui/dictionary/dictionary_hud.tscn" id="8_dicthud"]
+[ext_resource type="PackedScene" uid="uid://cfmgemsb5gd0a" path="res://scenes/minigames/translation_challenge.tscn" id="9_challenge"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uyqam"]
 texture = ExtResource("1_uyqam")
@@ -289,9 +290,12 @@ rotation = 1.5707964
 scale = Vector2(1, 1.45)
 
 [node name="PauseMenu" parent="." unique_id=1873402219 instance=ExtResource("5_menu")]
+layer = 12
 
 [node name="FishingQuiz" type="Node" parent="." unique_id=1145129749]
 script = ExtResource("6_quiz")
+
+[node name="TranslationChallenge" parent="." unique_id=1142246205 instance=ExtResource("9_challenge")]
 
 [node name="DialogueUI" parent="." unique_id=2029768901 instance=ExtResource("7_dialogue")]
 level_controller_path = NodePath("../FishingQuiz")

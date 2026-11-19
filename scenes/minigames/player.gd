@@ -25,6 +25,11 @@ var can_fish := false
 var facing_direction := Vector2.DOWN
 var current_fishing_spot: Area2D = null
 
+## Bumped every time fishing ends. The cast/wait/bite steps below are coroutines (await),
+## so each one remembers the session it started in and quietly stops if it has changed.
+## Without this, a cancelled cast's timers would still fire and wreck the next cast.
+var _fishing_session := 0
+
 func _physics_process(_delta: float) -> void:
 	if fishing_state != FishingState.IDLE:
 		velocity = Vector2.ZERO
@@ -58,16 +63,32 @@ func _physics_process(_delta: float) -> void:
 	
 	move_and_slide()
 
-func _process(_delta):
-	if Input.is_action_just_pressed("interact") and not MovementBlockers.is_blocking(get_tree()):
+# An input event rather than polling Input: once the timing bar (or a text box) has used
+# an E press, it doesn't reach here too. Polling saw the same press that missed the bar
+# and immediately cast the line again.
+func _unhandled_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("interact") or event.is_echo():
+		return
+	if MovementBlockers.is_blocking(get_tree()):
+		return
+	if _on_interact_pressed():
+		get_viewport().set_input_as_handled()
 
-		if fishing_state == FishingState.IDLE:
+## Returns true if the press did something (so the timing bar doesn't also act on it).
+func _on_interact_pressed() -> bool:
+	match fishing_state:
+		FishingState.IDLE:
 			if can_fish:
 				start_fishing()
-
-		elif fishing_state == FishingState.BITE:
+				return true
+		FishingState.CASTING, FishingState.WAITING:
+			# Pressing again before anything bites reels the line back in.
+			cancel_fishing()
+			return true
+		FishingState.BITE:
 			start_reeling()
-			
+			return true
+	return false
 
 func position_fishing_minigame() -> void:
 	var screen_position = get_global_transform_with_canvas().origin
@@ -98,6 +119,7 @@ func update_tool_direction() -> void:
 	
 func start_fishing():
 	fishing_state = FishingState.CASTING
+	var session := _fishing_session
 	tool_sprite.visible = true
 	update_tool_direction()
 	velocity = Vector2.ZERO
@@ -106,12 +128,15 @@ func start_fishing():
 	tool_sprite.play("casting")
 
 	await animated_sprite_2d.animation_finished
+	if session != _fishing_session:
+		return
 
 	start_waiting()
 
 
 func start_waiting():
 	fishing_state = FishingState.WAITING
+	var session := _fishing_session
 
 	animated_sprite_2d.play("idle")
 	tool_sprite.play("idle")
@@ -121,12 +146,15 @@ func start_waiting():
 
 	# false: the wait stops while the game is paused.
 	await get_tree().create_timer(wait_time, false).timeout
+	if session != _fishing_session:
+		return
 
 	fish_bites()
 
 
 func fish_bites():
 	fishing_state = FishingState.BITE
+	var session := _fishing_session
 	cues.start_bite()
 
 	print("A fish is biting!")
@@ -134,6 +162,8 @@ func fish_bites():
 	var bite_window = 1.5
 
 	await get_tree().create_timer(bite_window, false).timeout
+	if session != _fishing_session:
+		return
 
 	if fishing_state == FishingState.BITE:
 		fail_fishing()
@@ -177,7 +207,14 @@ func fail_fishing():
 	end_fishing()
 
 
+## Player reeled the line back in before a fish bit.
+func cancel_fishing():
+	print("Reeled the line back in.")
+	end_fishing()
+
+
 func end_fishing():
+	_fishing_session += 1
 	cues.hide_float()
 	fishing_minigame.close_minigame()
 	fishing_state = FishingState.IDLE

@@ -3,7 +3,7 @@ extends Node2D
 ## while waiting and dips hard during a bite, plus a short message when a fish gets away.
 ## player.gd calls show_float(), start_bite(), hide_float() and show_message().
 
-const FLOAT_TEXTURE := preload("res://assets/tilesets/character/tools_casting_strip15.png")
+const FLOAT_TEXTURE := preload("res://assets/characterTextures/characterFishing/characterTools/tools_casting_strip15.png")
 ## The red float as drawn in frame 8 of the cast animation (frames are 96x64).
 const FLOAT_REGION := Rect2(843, 33, 4, 4)
 ## Where the float lands in the last cast frame, relative to the rod frame's center.

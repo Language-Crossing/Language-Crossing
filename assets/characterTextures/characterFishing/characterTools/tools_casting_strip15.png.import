@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b73g15h6yvx1a"
-path="res://.godot/imported/base_walk_strip8.png-238308c58a625a0a61e88510beacfd5e.ctex"
+uid="uid://bcru4558sgsxv"
+path="res://.godot/imported/tools_casting_strip15.png-b4410f3bd8d778798ddf2fd4be4dbc3a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tilesets/character/base_walk_strip8.png"
-dest_files=["res://.godot/imported/base_walk_strip8.png-238308c58a625a0a61e88510beacfd5e.ctex"]
+source_file="res://assets/characterTextures/characterFishing/characterTools/tools_casting_strip15.png"
+dest_files=["res://.godot/imported/tools_casting_strip15.png-b4410f3bd8d778798ddf2fd4be4dbc3a.ctex"]
 
 [params]
 
