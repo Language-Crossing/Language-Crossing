@@ -7,6 +7,8 @@ signal object_interacted(object_id: StringName, object_name: String)
 signal task_progress_changed(task: Dictionary)
 
 const XP_PER_CORRECT_ANSWER := 10
+## For handing over a task's item. A task can set its own with "xp" in the level config.
+const XP_PER_TASK := 10
 
 @export_file("*.json") var config_path := ""
 
@@ -418,6 +420,8 @@ func _complete_deliverable_tasks(npc_id: StringName) -> Array[Dictionary]:
 			else:
 				for term in taught_terms:
 					_learn_vocabulary_entry(term, "task '%s'" % task.get("taskName", task_id))
+			# Before _set_task_progress, which saves, so the XP is saved with the task.
+			player_state.call("add_xp", int(task.get("xp", XP_PER_TASK)))
 			_set_task_progress(int(task_id), {
 				"status": "completed",
 				"stage": "completed",

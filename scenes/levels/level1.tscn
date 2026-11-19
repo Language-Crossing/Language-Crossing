@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/levels/behavior/interactable_object.gd" id="20_object"]
 [ext_resource type="PackedScene" path="res://scenes/ui/task_list.tscn" id="21_task_list"]
 [ext_resource type="PackedScene" path="res://scenes/ui/gameplay_menu.tscn" id="22_gameplay_menu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/xp_bar.tscn" id="23_xp_bar"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4tcl0"]
 texture = ExtResource("1_x6ivy")
@@ -787,6 +788,8 @@ tile_size = Vector2i(24, 24)
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_4tcl0")
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundary_edges"]
+
 [node name="LevelRoot" type="Node2D" unique_id=1221234548]
 scale = Vector2(2, 2)
 script = ExtResource("16_level")
@@ -817,6 +820,25 @@ tile_set = SubResource("TileSet_b0cdc")
 tile_map_data = PackedByteArray("AAAFAAEAAQALAA8AAAAFAAIAAQALABAAAAAFAAMAAQALABEAAAAFAAQAAQALABIAAAAFAAUAAQALABMAAAAFAAYAAQALABQAAAAGAAEAAQAMAA8AAAAGAAIAAQAMABAAAAAGAAMAAQAMABEAAAAGAAQAAQAMABIAAAAGAAUAAQAMABMAAAAGAAYAAQAMABQAAAAHAAEAAQANAA8AAAAHAAIAAQANABAAAAAHAAMAAQANABEAAAAHAAQAAQANABIAAAAHAAUAAQANABMAAAAHAAYAAQANABQAAAAIAAEAAQAOAA8AAAAIAAIAAQAOABAAAAAIAAMAAQAOABEAAAAIAAQAAQAOABIAAAAIAAUAAQAOABMAAAAIAAYAAQAOABQAAAAKAAMAAQADAAEAAAAKAAQAAQADAAIAAAAKAAUAAQADAAMAAAAKAAYAAQADAAQAAAAKAAcAAQADAAUAAAALAAMAAQAEAAEAAAALAAQAAQAEAAIAAAALAAUAAQAEAAMAAAALAAYAAQAEAAQAAAALAAcAAQAEAAUAAAAMAAMAAQAFAAEAAAAMAAQAAQAFAAIAAAAMAAUAAQAFAAMAAAAMAAYAAQAFAAQAAAAMAAcAAQAFAAUAAAAOAAIAAQAQABAAAAAOAAMAAQAQABEAAAAOAAQAAQAQABIAAAAOAAUAAQAQABMAAAAOAAYAAQAQABQAAAAPAAEAAQARAA8AAAAPAAIAAQARABAAAAAPAAMAAQARABEAAAAPAAQAAQARABIAAAAPAAUAAQARABMAAAAPAAYAAQARABQAAAAQAAEAAQASAA8AAAAQAAIAAQASABAAAAAQAAMAAQASABEAAAAQAAQAAQASABIAAAAQAAUAAQASABMAAAAQAAYAAQASABQAAAARAAEAAQATAA8AAAARAAIAAQATABAAAAARAAMAAQATABEAAAARAAQAAQATABIAAAARAAUAAQATABMAAAARAAYAAQATABQAAAASAAEAAQAGAA8AAAASAAIAAQAGABAAAAASAAMAAQAGABEAAAASAAQAAQAGABIAAAASAAUAAQAGABMAAAASAAYAAQAGABQAAAATAAEAAQAHAA8AAAATAAIAAQAHABAAAAATAAMAAQAHABEAAAATAAQAAQAHABIAAAATAAUAAQAHABMAAAATAAYAAQAHABQAAAAUAAEAAQAIAA8AAAAUAAIAAQAIABAAAAAUAAMAAQAIABEAAAAUAAQAAQAIABIAAAAUAAUAAQAIABMAAAAUAAYAAQAIABQAAAAVAAEAAQAJAA8AAAAVAAIAAQAJABAAAAAVAAMAAQAJABEAAAAVAAQAAQAJABIAAAAVAAUAAQAJABMAAAAVAAYAAQAJABQAAAANAAoAAQAMAAMAAAAOAAoAAQANAAMAAAAFAAcAAQAKAAQAAAAFAAgAAQAKAAUAAAAGAAcAAQALAAQAAAAGAAgAAQALAAUAAAANAAcAAQAPAAQAAAAIAAoAAQACAAEAAAAOAAkAAQACAAIAAAAIAAgAAQAaAAUAAAAIAAkAAQAaAAYAAAA=")
 tile_set = SubResource("TileSet_b0cdc")
 
+[node name="ScreenEdges" type="StaticBody2D" parent="."]
+
+[node name="Top" type="CollisionShape2D" parent="ScreenEdges"]
+rotation = 3.1415927
+shape = SubResource("WorldBoundary_edges")
+
+[node name="Bottom" type="CollisionShape2D" parent="ScreenEdges"]
+position = Vector2(0, 360)
+shape = SubResource("WorldBoundary_edges")
+
+[node name="Left" type="CollisionShape2D" parent="ScreenEdges"]
+rotation = 1.5707964
+shape = SubResource("WorldBoundary_edges")
+
+[node name="Right" type="CollisionShape2D" parent="ScreenEdges"]
+position = Vector2(648, 0)
+rotation = -1.5707964
+shape = SubResource("WorldBoundary_edges")
+
 [node name="BookInteraction" type="Node2D" parent="."]
 position = Vector2(430, 145)
 script = ExtResource("20_object")
@@ -838,7 +860,7 @@ item_region = Rect2(52, 31, 16, 17)
 found_name = "la planta"
 
 [node name="ChairInteraction" type="Node2D" parent="."]
-position = Vector2(145, 312)
+position = Vector2(588, 282)
 script = ExtResource("20_object")
 object_id = &"library_chair"
 object_name = "Chair"
@@ -892,5 +914,7 @@ head_type = "brown_hat"
 [node name="TaskList" parent="." instance=ExtResource("21_task_list")]
 
 [node name="GameplayMenu" parent="." instance=ExtResource("22_gameplay_menu")]
+
+[node name="XPBar" parent="." instance=ExtResource("23_xp_bar")]
 
 [node name="Node2D" parent="." unique_id=2109147346 instance=ExtResource("8_8a7m2")]

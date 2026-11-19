@@ -344,16 +344,15 @@
           "kind": "quiz",
           "pauseForTaskId": 3,
           "teaches": [
-            {"spanish": "la silla", "english": "the chair", "partOfSpeech": "phrase"},
             {"spanish": "silla", "english": "chair", "partOfSpeech": "noun"},
-            {"spanish": "Muy bien", "english": "Very good", "partOfSpeech": "phrase"}
+            {"spanish": "Fantástico", "english": "Fantastic"}
           ],
-          "question": "I am crafting furniture! \"La silla\" means \"the chair\". Can you fetch la [blank] for my workshop?",
+          "question": "I'm building furniture for my workshop and I need something to sit on. Can you bring me la [blank]?",
           "options": [
             {
               "optionText": "silla",
               "blankFill": "silla",
-              "response": "¡Muy bien! 'Silla' means chair.",
+              "response": "¡Fantástico! 'Silla' means chair. Find a chair in the library and bring it back to me.",
               "isAnswer": true,
               "learns": {
                 "spanish": "silla",
