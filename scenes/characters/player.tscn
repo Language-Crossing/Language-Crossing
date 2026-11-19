@@ -8,5 +8,5 @@
 script = ExtResource("2_dyp2m")
 outfit_type = "blue_armor"
 
-[node name="BodySprite" parent="." index="0" unique_id=462972958]
+[node name="BodySprite" parent="Sprites" index="0" unique_id=462972958]
 texture = ExtResource("3_atpat")

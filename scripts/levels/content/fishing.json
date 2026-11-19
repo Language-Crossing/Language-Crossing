@@ -1,0 +1,17 @@
+{
+  "description": "Words only found while fishing. Same entry shape as a level's \"learns\" entries.",
+  "words": [
+    { "spanish": "el pez", "english": "the fish", "partOfSpeech": "noun" },
+    { "spanish": "el agua", "english": "the water", "partOfSpeech": "noun" },
+    { "spanish": "el lago", "english": "the lake", "partOfSpeech": "noun" },
+    { "spanish": "el río", "english": "the river", "partOfSpeech": "noun" },
+    { "spanish": "el mar", "english": "the sea", "partOfSpeech": "noun" },
+    { "spanish": "la isla", "english": "the island", "partOfSpeech": "noun" },
+    { "spanish": "el barco", "english": "the boat", "partOfSpeech": "noun" },
+    { "spanish": "la caña de pescar", "english": "the fishing rod", "partOfSpeech": "noun" },
+    { "spanish": "el anzuelo", "english": "the hook", "partOfSpeech": "noun" },
+    { "spanish": "la red", "english": "the net", "partOfSpeech": "noun" },
+    { "spanish": "el pato", "english": "the duck", "partOfSpeech": "noun" },
+    { "spanish": "pescar", "english": "to fish", "partOfSpeech": "verb" }
+  ]
+}

@@ -20,9 +20,9 @@ const SPEED = 200.0
 		update_appearance()
 
 # Node references
-@onready var body_sprite = $BodySprite
-@onready var outfit_sprite = $OutfitSprite
-@onready var head_sprite = $HeadSprite
+@onready var body_sprite = $Sprites/BodySprite
+@onready var outfit_sprite = $Sprites/OutfitSprite
+@onready var head_sprite = $Sprites/HeadSprite
 @onready var anim_player = $AnimationPlayer
 @onready var name_label: Label = $NameLabel
 

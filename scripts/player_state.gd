@@ -5,6 +5,12 @@ const SAVE_FILE := "save.json"
 signal state_loaded
 signal state_saved
 signal task_progress_changed(level_id: int, task_id: int, progress: Dictionary)
+## XP was earned. `gained` is how much; the totals are already updated.
+signal xp_changed(gained: int)
+
+## XP needed for each player level. Level 1 of the story gives exactly this much
+## (7 quiz answers + 3 delivered items, 10 XP each).
+const XP_PER_LEVEL := 100
 
 var player_name := "Player"
 var level_id := 1
@@ -13,6 +19,8 @@ var xp := 0
 var dictionary: Dictionary = {}
 var inventory: Dictionary = {}
 var dialogue_progress: Dictionary = {}
+## Per-mini-game save data, keyed by name, e.g. minigames["fishing"]. Each game owns its own shape.
+var minigames: Dictionary = {}
 var task_progress: Dictionary = {}
 
 
@@ -31,6 +39,7 @@ func load_game() -> void:
 	var default_inventory: Variant = ConfigHelpers.read_config("Player/inventory.json", {"inventory": []})
 	var saved_state: Variant = ConfigHelpers.read_save(SAVE_FILE, {})
 	var has_global_save: bool = saved_state is Dictionary and not saved_state.is_empty()
+	minigames = {}
 
 	var player_data: Variant
 	var dictionary_data: Variant
@@ -39,6 +48,9 @@ func load_game() -> void:
 		player_data = saved_state.get("player", default_player)
 		dictionary_data = saved_state.get("dictionary", default_dictionary)
 		inventory_data = saved_state.get("inventory", default_inventory)
+		var saved_minigames: Variant = saved_state.get("minigames", {})
+		if saved_minigames is Dictionary:
+			minigames = saved_minigames
 	else:
 		player_data = ConfigHelpers.read_save("player.json", default_player)
 		dictionary_data = ConfigHelpers.read_save("dictionary.json", default_dictionary)
@@ -78,6 +90,7 @@ func reset_progress(restart_current_scene: bool = false) -> bool:
 	progress = int(default_player.get("progress", 0))
 	xp = int(default_player.get("XP", 0))
 	dialogue_progress.clear()
+	minigames = {}
 	task_progress.clear()
 	dictionary = _dictionary_or_fallback(default_dictionary, {"dictionary": []})
 	inventory = _dictionary_or_fallback(default_inventory, {"inventory": []})
@@ -95,7 +108,8 @@ func save_game() -> bool:
 	var saved := ConfigHelpers.write_save(SAVE_FILE, {
 		"player": get_player_data(),
 		"dictionary": dictionary,
-		"inventory": inventory
+		"inventory": inventory,
+		"minigames": minigames
 	})
 	if saved:
 		state_saved.emit()
@@ -134,6 +148,13 @@ func set_dialogue_checkpoint(target_level_id: int, npc_id: String, dialogue_id: 
 	dialogue_progress[level_key] = level_checkpoints
 
 
+## The live save data for one mini-game. Changes to it are written by save_game().
+func get_minigame_data(minigame: String) -> Dictionary:
+	if not minigames.get(minigame) is Dictionary:
+		minigames[minigame] = {}
+	return minigames[minigame]
+
+
 func get_task_progress(target_level_id: int, task_id: int) -> Dictionary:
 	var level_tasks: Variant = task_progress.get(str(target_level_id), {})
 	if not level_tasks is Dictionary:
@@ -155,6 +176,17 @@ func set_task_progress(target_level_id: int, task_id: int, progress: Dictionary)
 
 func add_xp(amount: int) -> void:
 	xp += amount
+	xp_changed.emit(amount)
+
+
+## The player's level from their XP (not the story level): 1 at 0 XP, 2 at 100, ...
+func get_player_level() -> int:
+	return 1 + xp / XP_PER_LEVEL
+
+
+## XP earned toward the next player level.
+func get_xp_into_level() -> int:
+	return xp % XP_PER_LEVEL
 
 
 func add_dictionary_entries(entries: Array) -> void:

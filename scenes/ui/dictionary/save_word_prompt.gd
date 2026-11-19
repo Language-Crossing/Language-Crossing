@@ -15,6 +15,7 @@ var _current: Dictionary = {}
 
 
 func _ready() -> void:
+	MovementBlockers.register(self)
 	hide()
 	%SaveButton.pressed.connect(_answer.bind(true))
 	%SkipButton.pressed.connect(_answer.bind(false))
@@ -56,7 +57,8 @@ func _answer(saved: bool) -> void:
 		DictionaryManager.add_word(
 			str(entry.get("spanishWord", "")),
 			str(entry.get("englishWord", "")),
-			str(entry.get("partOfSpeech", ""))
+			str(entry.get("partOfSpeech", "")),
+			str(entry.get("source", ""))
 		)
 	answered.emit(entry, saved)
 	_show_next()
