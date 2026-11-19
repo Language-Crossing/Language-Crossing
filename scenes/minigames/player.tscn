@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://dkaego0u0vhsi"]
 
-[ext_resource type="Texture2D" uid="uid://c3wgtaq4t075x" path="res://assets/tilesets/character/base_casting_strip15.png" id="1_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://c3wgtaq4t075x" path="res://assets/characterTextures/characterFishing/characterBody/base_casting_strip15.png" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://b1jlwb5twnkaw" path="res://scenes/minigames/player.gd" id="1_dw050"]
-[ext_resource type="Texture2D" uid="uid://ch0co1dr8508m" path="res://assets/tilesets/character/base_caught_strip10.png" id="2_dw050"]
-[ext_resource type="Texture2D" uid="uid://chojsta02rnc6" path="res://assets/tilesets/character/base_idle_strip9.png" id="3_b26j0"]
-[ext_resource type="Texture2D" uid="uid://bro6o7osgqh24" path="res://assets/tilesets/character/base_reeling_strip13.png" id="4_n7ghd"]
-[ext_resource type="Texture2D" uid="uid://bcru4558sgsxv" path="res://assets/tilesets/character/tools_casting_strip15.png" id="5_nvl01"]
-[ext_resource type="Texture2D" uid="uid://b73g15h6yvx1a" path="res://assets/tilesets/character/base_walk_strip8.png" id="6_gatnc"]
-[ext_resource type="Texture2D" uid="uid://s6bclfhpsegq" path="res://assets/tilesets/character/tools_caught_strip10.png" id="6_ivps1"]
-[ext_resource type="Texture2D" uid="uid://cwokob7gosro2" path="res://assets/tilesets/character/tools_reeling_strip13.png" id="7_urp6f"]
+[ext_resource type="Texture2D" uid="uid://ch0co1dr8508m" path="res://assets/characterTextures/characterFishing/characterBody/base_caught_strip10.png" id="2_dw050"]
+[ext_resource type="Texture2D" uid="uid://chojsta02rnc6" path="res://assets/characterTextures/characterFishing/characterBody/base_idle_strip9.png" id="3_b26j0"]
+[ext_resource type="Texture2D" uid="uid://bro6o7osgqh24" path="res://assets/characterTextures/characterFishing/characterBody/base_reeling_strip13.png" id="4_n7ghd"]
+[ext_resource type="Texture2D" uid="uid://bcru4558sgsxv" path="res://assets/characterTextures/characterFishing/characterTools/tools_casting_strip15.png" id="5_nvl01"]
+[ext_resource type="Texture2D" uid="uid://b73g15h6yvx1a" path="res://assets/characterTextures/characterFishing/characterBody/base_walk_strip8.png" id="6_gatnc"]
+[ext_resource type="Texture2D" uid="uid://s6bclfhpsegq" path="res://assets/characterTextures/characterFishing/characterTools/tools_caught_strip10.png" id="6_ivps1"]
+[ext_resource type="Texture2D" uid="uid://cwokob7gosro2" path="res://assets/characterTextures/characterFishing/characterTools/tools_reeling_strip13.png" id="7_urp6f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bwjto"]
 atlas = ExtResource("1_1jxqw")
@@ -714,7 +714,7 @@ animations = [{
 "frames": [],
 "loop": 1,
 "name": &"walking",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wvhok"]
@@ -731,9 +731,7 @@ frame_progress = 1.0
 [node name="Tool2D" type="AnimatedSprite2D" parent="." unique_id=515746925]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_f2kpx")
-animation = &"caught"
-frame = 9
-frame_progress = 1.0
+animation = &"walking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=486992471]
 shape = SubResource("RectangleShape2D_wvhok")
