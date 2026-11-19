@@ -18,6 +18,8 @@ var active_dialogues: Array = []
 var active_dialogue_index := -1
 var pending_delivery_npc_id: StringName = &""
 var pending_delivery_task_ids: Array[int] = []
+# Task items in the level (InteractableObject), shown or hidden as their tasks change.
+var task_objects: Array[InteractableObject] = []
 # True while replaying a finished conversation for practice: no checkpoint changes, no XP.
 var is_replay := false
 @onready var player_state: Node = get_node("/root/PlayerState")
@@ -59,6 +61,7 @@ func _ready() -> void:
 
 	_restore_unlocked_tasks()
 	_connect_interactables(self)
+	_refresh_task_objects(false)
 
 
 func _connect_interactables(parent: Node) -> void:
@@ -70,6 +73,7 @@ func _connect_interactables(parent: Node) -> void:
 				child.interacted.connect(_on_npc_interacted)
 		elif child is InteractableObject and not child.interacted.is_connected(_on_object_interacted):
 			child.interacted.connect(_on_object_interacted)
+			task_objects.append(child)
 		_connect_interactables(child)
 
 
@@ -566,12 +570,34 @@ func _set_task_progress(task_id: int, progress: Dictionary) -> void:
 		var description_key := "deliverDescription" if task_update["stage"] == "deliver" else "findDescription"
 		task_update["taskDescription"] = str(task.get(description_key, task.get("taskDescription", "")))
 	task_progress_changed.emit(task_update)
+	_refresh_task_objects(true)
 	_log_dialogue(
 		"Task '%s': %s" % [
 			task.get("taskName", task_id),
 			task_update["status"] + (": " + task_update["stage"] if task_update["status"] == "active" else "")
 		]
 	)
+
+
+## Tells each task item where its task is ("" before the NPC asks for it, then "find",
+## "deliver", "completed") so it can show itself, hide, or ride along with the player.
+## `announce` lets an item that was just picked up say "You found ...!".
+func _refresh_task_objects(announce: bool) -> void:
+	var level_id := int(level_data.get("levelId", 0))
+	for object in task_objects:
+		if not is_instance_valid(object):
+			continue
+		var stage := ""
+		for task_id in tasks_by_id:
+			if StringName(str(tasks_by_id[task_id].get("objectId", ""))) != object.object_id:
+				continue
+			var progress: Dictionary = player_state.call("get_task_progress", level_id, int(task_id))
+			match str(progress.get("status", "locked")):
+				"active":
+					stage = str(progress.get("stage", "find"))
+				"completed":
+					stage = "completed"
+		object.set_task_stage(stage, announce)
 
 
 func _is_task_completed(task_id: int) -> bool:

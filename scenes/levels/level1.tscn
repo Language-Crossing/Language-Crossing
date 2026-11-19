@@ -817,6 +817,36 @@ tile_set = SubResource("TileSet_b0cdc")
 tile_map_data = PackedByteArray("AAAFAAEAAQALAA8AAAAFAAIAAQALABAAAAAFAAMAAQALABEAAAAFAAQAAQALABIAAAAFAAUAAQALABMAAAAFAAYAAQALABQAAAAGAAEAAQAMAA8AAAAGAAIAAQAMABAAAAAGAAMAAQAMABEAAAAGAAQAAQAMABIAAAAGAAUAAQAMABMAAAAGAAYAAQAMABQAAAAHAAEAAQANAA8AAAAHAAIAAQANABAAAAAHAAMAAQANABEAAAAHAAQAAQANABIAAAAHAAUAAQANABMAAAAHAAYAAQANABQAAAAIAAEAAQAOAA8AAAAIAAIAAQAOABAAAAAIAAMAAQAOABEAAAAIAAQAAQAOABIAAAAIAAUAAQAOABMAAAAIAAYAAQAOABQAAAAKAAMAAQADAAEAAAAKAAQAAQADAAIAAAAKAAUAAQADAAMAAAAKAAYAAQADAAQAAAAKAAcAAQADAAUAAAALAAMAAQAEAAEAAAALAAQAAQAEAAIAAAALAAUAAQAEAAMAAAALAAYAAQAEAAQAAAALAAcAAQAEAAUAAAAMAAMAAQAFAAEAAAAMAAQAAQAFAAIAAAAMAAUAAQAFAAMAAAAMAAYAAQAFAAQAAAAMAAcAAQAFAAUAAAAOAAIAAQAQABAAAAAOAAMAAQAQABEAAAAOAAQAAQAQABIAAAAOAAUAAQAQABMAAAAOAAYAAQAQABQAAAAPAAEAAQARAA8AAAAPAAIAAQARABAAAAAPAAMAAQARABEAAAAPAAQAAQARABIAAAAPAAUAAQARABMAAAAPAAYAAQARABQAAAAQAAEAAQASAA8AAAAQAAIAAQASABAAAAAQAAMAAQASABEAAAAQAAQAAQASABIAAAAQAAUAAQASABMAAAAQAAYAAQASABQAAAARAAEAAQATAA8AAAARAAIAAQATABAAAAARAAMAAQATABEAAAARAAQAAQATABIAAAARAAUAAQATABMAAAARAAYAAQATABQAAAASAAEAAQAGAA8AAAASAAIAAQAGABAAAAASAAMAAQAGABEAAAASAAQAAQAGABIAAAASAAUAAQAGABMAAAASAAYAAQAGABQAAAATAAEAAQAHAA8AAAATAAIAAQAHABAAAAATAAMAAQAHABEAAAATAAQAAQAHABIAAAATAAUAAQAHABMAAAATAAYAAQAHABQAAAAUAAEAAQAIAA8AAAAUAAIAAQAIABAAAAAUAAMAAQAIABEAAAAUAAQAAQAIABIAAAAUAAUAAQAIABMAAAAUAAYAAQAIABQAAAAVAAEAAQAJAA8AAAAVAAIAAQAJABAAAAAVAAMAAQAJABEAAAAVAAQAAQAJABIAAAAVAAUAAQAJABMAAAAVAAYAAQAJABQAAAANAAoAAQAMAAMAAAAOAAoAAQANAAMAAAAFAAcAAQAKAAQAAAAFAAgAAQAKAAUAAAAGAAcAAQALAAQAAAAGAAgAAQALAAUAAAANAAcAAQAPAAQAAAAIAAoAAQACAAEAAAAOAAkAAQACAAIAAAAIAAgAAQAaAAUAAAAIAAkAAQAaAAYAAAA=")
 tile_set = SubResource("TileSet_b0cdc")
 
+[node name="BookInteraction" type="Node2D" parent="."]
+position = Vector2(430, 145)
+script = ExtResource("20_object")
+object_id = &"library_book"
+object_name = "Book"
+interact_radius = 30.0
+item_texture = ExtResource("1_x6ivy")
+item_region = Rect2(360, 55, 24, 17)
+found_name = "el libro"
+
+[node name="PlantInteraction" type="Node2D" parent="."]
+position = Vector2(225, 174)
+script = ExtResource("20_object")
+object_id = &"library_plant"
+object_name = "Plant"
+interact_radius = 30.0
+item_texture = ExtResource("1_x6ivy")
+item_region = Rect2(52, 31, 16, 17)
+found_name = "la planta"
+
+[node name="ChairInteraction" type="Node2D" parent="."]
+position = Vector2(145, 312)
+script = ExtResource("20_object")
+object_id = &"library_chair"
+object_name = "Chair"
+interact_radius = 45.0
+item_texture = ExtResource("1_x6ivy")
+item_region = Rect2(672, 100, 48, 68)
+found_name = "la silla"
+
 [node name="Player" parent="." unique_id=1329473978 instance=ExtResource("2_4tcl0")]
 position = Vector2(274.5, 339.5)
 outfit_type = "grey_armor"
@@ -854,27 +884,6 @@ npc_id = &"elena"
 body_type = "umber"
 outfit_type = "light_blue_armor"
 head_type = "brown_hat"
-
-[node name="BookInteraction" type="Node2D" parent="."]
-position = Vector2(430, 145)
-script = ExtResource("20_object")
-object_id = &"library_book"
-object_name = "Book"
-interact_radius = 30.0
-
-[node name="PlantInteraction" type="Node2D" parent="."]
-position = Vector2(624, 168)
-script = ExtResource("20_object")
-object_id = &"library_plant"
-object_name = "Plant"
-interact_radius = 30.0
-
-[node name="ChairInteraction" type="Node2D" parent="."]
-position = Vector2(252, 204)
-script = ExtResource("20_object")
-object_id = &"library_chair"
-object_name = "Chair"
-interact_radius = 30.0
 
 [node name="DialogueUI" parent="." unique_id=940229574 instance=ExtResource("18_dialogue_ui")]
 
