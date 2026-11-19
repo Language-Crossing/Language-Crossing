@@ -8,8 +8,8 @@ const OUTLINE_SHADER := preload("res://scenes/characters/outline_group.gdshader"
 const KEY_CAP_TEXTURE := preload("res://assets/tilesets/Sprout Lands - UI Pack - Basic pack/Sprite sheets/buttons/Small Square Buttons.png")
 const KEY_CAP_REGION := Rect2(0, 32, 16, 16)
 const PROMPT_FONT := preload("res://assets/Fonts/pixel-game/Pixel Game.otf")
-## Above the head: character frames are 64x64 and hair/hats start about 20px above center.
-const PROMPT_OFFSET := Vector2(0, -32)
+## Above the name label (character.tscn's NameLabel spans y -43 to -27), so the key never covers the name.
+const PROMPT_OFFSET := Vector2(0, -52)
 
 @export var npc_id: StringName = &""
 @export var interact_radius: float = 30.0

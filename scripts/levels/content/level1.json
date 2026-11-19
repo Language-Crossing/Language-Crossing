@@ -40,6 +40,11 @@
         {
           "question": "In Spanish, we conjugate verbs based on the subject of the sentence. For example, the verb 'to be' is conjugated as 'soy' for 'I am', 'eres' for 'you are', and 'es' for 'he/she/it is'. You can access the present tense conjugation cheat sheet by clicking on the cheat sheet icon in the top right corner of the screen.",
           "id": 4,
+          "teaches": [
+            {"spanish": "soy", "english": "I am"},
+            {"spanish": "eres", "english": "you are"},
+            {"spanish": "es", "english": "he/she/it is"}
+          ],
           "options": [
             {
               "optionText": "Got it!",
@@ -108,7 +113,12 @@
         {
           "id": 1,
           "kind": "quiz",
-          "question": "¡Hola! Welcome to the library. Complete your introduction: \"¡Hola! [blank] Sam.\"",
+          "teaches": [
+            {"spanish": "Hola", "english": "Hello"},
+            {"spanish": "Me llamo", "english": "My name is", "partOfSpeech": "phrase"},
+            {"spanish": "Mucho gusto", "english": "Nice to meet you", "partOfSpeech": "phrase"}
+          ],
+          "question": "¡Hola! Welcome to the library. Complete your introduction: \"¡Hola! [blank] Player.\"",
           "options": [
             {
               "optionText": "Me llamo",
@@ -138,7 +148,13 @@
         {
           "id": 2,
           "kind": "quiz",
-          "question": "In Spanish, a book is called \"el libro\". Can you find el [blank] for me?",
+          "pauseForTaskId": 1,
+          "teaches": [
+            {"spanish": "el", "english": "the (masculine)"},
+            {"spanish": "libro", "english": "book"},
+            {"spanish": "Perfecto", "english": "Perfect"}
+          ],
+          "question": "I have misplaced el [blank]. Can you find it for me?",
           "options": [
             {
               "optionText": "libro",
@@ -168,12 +184,17 @@
         {
           "id": 3,
           "kind": "quiz",
-          "question": "¡Muchas gracias! How do you say \"You're welcome\" in Spanish?",
+          "requiresTaskCompletion": 1,
+          "teaches": [
+            {"spanish": "De nada", "english": "You're welcome", "partOfSpeech": "phrase"},
+            {"spanish": "Excelente", "english": "Excellent"}
+          ],
+          "question": "If someone thanks you, how do you say \"You're welcome\" in Spanish?",
           "options": [
             {
               "optionText": "De nada",
               "blankFill": "De nada",
-              "response": "¡Excelente! 'De nada' means 'You're welcome'. Next, go see Mateo the gardener by the potted plants on the right side of the library!",
+              "response": "¡Excelente! 'De nada' means 'You're welcome'. Thanks for bringing the book back!",
               "isAnswer": true,
               "learns": {
                 "spanish": "De nada",
@@ -206,7 +227,13 @@
         {
           "id": 4,
           "kind": "quiz",
-          "question": "To say \"Good morning\" in Spanish, we say \"Buenos días\". Complete the greeting: \"[blank] días, Mateo!\"",
+          "speaker": "Player",
+          "teaches": [
+            {"spanish": "Buenos", "english": "Good (masculine plural)"},
+            {"spanish": "días", "english": "days"},
+            {"spanish": "Muy bien", "english": "Very good", "partOfSpeech": "phrase"}
+          ],
+          "question": "[blank] días, Mateo!",
           "options": [
             {
               "optionText": "Buenos",
@@ -236,12 +263,18 @@
         {
           "id": 5,
           "kind": "quiz",
-          "question": "I need something green for my garden! \"La planta\" means \"the plant\". Can you bring me la [blank]?",
+          "pauseForTaskId": 2,
+          "teaches": [
+            {"spanish": "la", "english": "the (feminine)"},
+            {"spanish": "planta", "english": "plant", "partOfSpeech": "noun"},
+            {"spanish": "Correcto", "english": "Correct"}
+          ],
+          "question": "I need something green for my garden. Can you bring me la [blank]?",
           "options": [
             {
               "optionText": "planta",
               "blankFill": "planta",
-              "response": "¡Correcto! 'Planta' means plant. Next, go see Elena the carpenter on the open floor to the left of the desk!",
+              "response": "¡Correcto! 'Planta' means plant. Find a plant in the library and bring it back to me.",
               "isAnswer": true,
               "learns": {
                 "spanish": "planta",
@@ -273,7 +306,13 @@
         {
           "id": 6,
           "kind": "quiz",
-          "question": "In the afternoon, we greet people with \"Buenas tardes\". Complete your greeting: \"[blank] tardes, Elena!\"",
+          "speaker": "Player",
+          "teaches": [
+            {"spanish": "Buenas", "english": "Good (feminine plural)"},
+            {"spanish": "tardes", "english": "afternoons"},
+            {"spanish": "Eso es", "english": "That's right", "partOfSpeech": "phrase"}
+          ],
+          "question": "[blank] tardes, Elena!",
           "options": [
             {
               "optionText": "Buenas",
@@ -303,6 +342,12 @@
         {
           "id": 7,
           "kind": "quiz",
+          "pauseForTaskId": 3,
+          "teaches": [
+            {"spanish": "la silla", "english": "the chair", "partOfSpeech": "phrase"},
+            {"spanish": "silla", "english": "chair", "partOfSpeech": "noun"},
+            {"spanish": "Muy bien", "english": "Very good", "partOfSpeech": "phrase"}
+          ],
           "question": "I am crafting furniture! \"La silla\" means \"the chair\". Can you fetch la [blank] for my workshop?",
           "options": [
             {
@@ -421,6 +466,17 @@
       "taskName": "Sofia's Reading Material",
       "taskDescription": "Find and bring 'el libro' (the book) to Sofia the Librarian.",
       "npcName": "Sofia (Librarian)",
+      "targetNpcId": "sofia",
+      "objectId": "library_book",
+      "findDescription": "Find the book.",
+      "deliverDescription": "Give the book to Sofia the Librarian.",
+      "findNotice": "You haven't found the book yet. Look near the bookshelves, then bring it back to me.",
+      "deliverNotice": "You found the book. Please bring it back to me before we continue.",
+      "returnPlayerLine": "I found your book and brought it back.",
+      "returnNpcLine": "¡Gracias! The book is back where it belongs. Let's keep learning.",
+      "teaches": [
+        {"spanish": "Gracias", "english": "Thank you"}
+      ],
       "requiredItemId": 2,
       "dialogueId": 2,
       "isUnlocked": false,
@@ -431,6 +487,17 @@
       "taskName": "Greenery for Mateo",
       "taskDescription": "Find and bring 'la planta' (the plant) to Mateo the Gardener.",
       "npcName": "Mateo (Gardener)",
+      "targetNpcId": "mateo",
+      "objectId": "library_plant",
+      "findDescription": "Find the plant.",
+      "deliverDescription": "Give the plant to Mateo the Gardener.",
+      "findNotice": "You haven't found the plant yet. Look around the library for it.",
+      "deliverNotice": "You found the plant. Please bring it back to me.",
+      "returnPlayerLine": "I found a plant and brought it back for your garden.",
+      "returnNpcLine": "¡Muchas gracias! This will be perfect for the garden.",
+      "teaches": [
+        {"spanish": "Muchas gracias", "english": "Thank you very much", "partOfSpeech": "phrase"}
+      ],
       "requiredItemId": 1,
       "dialogueId": 5,
       "isUnlocked": false,
@@ -441,6 +508,17 @@
       "taskName": "Seating for Elena",
       "taskDescription": "Find and bring 'la silla' (the chair) to Elena the Carpenter.",
       "npcName": "Elena (Carpenter)",
+      "targetNpcId": "elena",
+      "objectId": "library_chair",
+      "findDescription": "Find the chair.",
+      "deliverDescription": "Give the chair to Elena the Carpenter.",
+      "findNotice": "You haven't found the chair yet. Look around the library for it.",
+      "deliverNotice": "You found the chair. Please bring it back to me.",
+      "returnPlayerLine": "I found the chair and brought it back for your workshop.",
+      "returnNpcLine": "¡Gracias! This chair will be just right for my workshop.",
+      "teaches": [
+        {"spanish": "Gracias", "english": "Thank you"}
+      ],
       "requiredItemId": 6,
       "dialogueId": 7,
       "isUnlocked": false,

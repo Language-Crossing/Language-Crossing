@@ -24,9 +24,15 @@ const SPEED = 200.0
 @onready var outfit_sprite = $Sprites/OutfitSprite
 @onready var head_sprite = $Sprites/HeadSprite
 @onready var anim_player = $AnimationPlayer
+@onready var name_label: Label = $NameLabel
 
 func _ready():
 	update_appearance()
+	name_label.text = str(name)
+	if name == "Player":
+		var player_state := get_node_or_null("/root/PlayerState")
+		if player_state != null:
+			name_label.text = str(player_state.get("player_name"))
 
 func update_appearance():
 	# If the nodes aren't ready yet (like during initialization), abort

@@ -1,0 +1,101 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/gameplay_menu.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/UI/pixel-ui-free-1.0.2/addons/pixel_ui/themes/wood.tres" id="2_theme"]
+[ext_resource type="FontFile" path="res://assets/Fonts/pixel-game/Pixel Game.otf" id="3_font"]
+
+[node name="GameplayMenu" type="CanvasLayer"]
+layer = 12
+script = ExtResource("1_script")
+
+[node name="BackgroundFade" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0, 0, 0, 0.32)
+
+[node name="MenuPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -58.0
+offset_right = 160.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+
+[node name="Margin" type="MarginContainer" parent="MenuPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="MenuItems" type="VBoxContainer" parent="MenuPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ResumeButton" type="Button" parent="MenuPanel/Margin/MenuItems"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_theme")
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Resume"
+
+[node name="BackToLevelsButton" type="Button" parent="MenuPanel/Margin/MenuItems"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_theme")
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Back to Levels"
+
+[node name="MenuButton" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -84.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 84.0
+focus_mode = 0
+theme = ExtResource("2_theme")
+text = ""
+
+[node name="BarTop" type="ColorRect" parent="MenuButton"]
+offset_left = 17.0
+offset_top = 20.0
+offset_right = 47.0
+offset_bottom = 24.0
+mouse_filter = 2
+color = Color(0.96, 0.86, 0.67, 1)
+
+[node name="BarMiddle" type="ColorRect" parent="MenuButton"]
+offset_left = 17.0
+offset_top = 30.0
+offset_right = 47.0
+offset_bottom = 34.0
+mouse_filter = 2
+color = Color(0.96, 0.86, 0.67, 1)
+
+[node name="BarBottom" type="ColorRect" parent="MenuButton"]
+offset_left = 17.0
+offset_top = 40.0
+offset_right = 47.0
+offset_bottom = 44.0
+mouse_filter = 2
+color = Color(0.96, 0.86, 0.67, 1)
+
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]

@@ -4,8 +4,9 @@ const SAVE_FILE := "save.json"
 
 signal state_loaded
 signal state_saved
+signal task_progress_changed(level_id: int, task_id: int, progress: Dictionary)
 
-var player_name := "Player 1"
+var player_name := "Player"
 var level_id := 1
 var progress := 0
 var xp := 0
@@ -14,6 +15,7 @@ var inventory: Dictionary = {}
 var dialogue_progress: Dictionary = {}
 ## Per-mini-game save data, keyed by name, e.g. minigames["fishing"]. Each game owns its own shape.
 var minigames: Dictionary = {}
+var task_progress: Dictionary = {}
 
 
 func _ready() -> void:
@@ -51,13 +53,18 @@ func load_game() -> void:
 	if not player_data is Dictionary:
 		player_data = default_player
 
-	player_name = str(player_data.get("name", "Player 1"))
+	player_name = str(player_data.get("name", "Player"))
+	if player_name == "Player 1":
+		player_name = "Player"
 	level_id = int(player_data.get("levelId", 1))
 	progress = int(player_data.get("progress", 0))
 	xp = int(player_data.get("XP", 0))
 	dialogue_progress = player_data.get("dialogueProgress", {})
 	if not dialogue_progress is Dictionary:
 		dialogue_progress = {}
+	task_progress = player_data.get("taskProgress", {})
+	if not task_progress is Dictionary:
+		task_progress = {}
 
 	dictionary = _dictionary_or_fallback(dictionary_data, default_dictionary)
 	inventory = _dictionary_or_fallback(inventory_data, default_inventory)
@@ -72,12 +79,13 @@ func reset_progress(restart_current_scene: bool = false) -> bool:
 
 	var default_dictionary: Variant = ConfigHelpers.read_config("Player/dictionary.json", {"dictionary": []})
 	var default_inventory: Variant = ConfigHelpers.read_config("Player/inventory.json", {"inventory": []})
-	player_name = str(default_player.get("name", "Player 1"))
+	player_name = str(default_player.get("name", "Player"))
 	level_id = int(default_player.get("levelId", 1))
 	progress = int(default_player.get("progress", 0))
 	xp = int(default_player.get("XP", 0))
 	dialogue_progress.clear()
 	minigames = {}
+	task_progress.clear()
 	dictionary = _dictionary_or_fallback(default_dictionary, {"dictionary": []})
 	inventory = _dictionary_or_fallback(default_inventory, {"inventory": []})
 
@@ -108,7 +116,8 @@ func get_player_data() -> Dictionary:
 		"levelId": level_id,
 		"progress": progress,
 		"XP": xp,
-		"dialogueProgress": dialogue_progress
+		"dialogueProgress": dialogue_progress,
+		"taskProgress": task_progress
 	}
 
 
@@ -138,6 +147,25 @@ func get_minigame_data(minigame: String) -> Dictionary:
 	if not minigames.get(minigame) is Dictionary:
 		minigames[minigame] = {}
 	return minigames[minigame]
+
+
+func get_task_progress(target_level_id: int, task_id: int) -> Dictionary:
+	var level_tasks: Variant = task_progress.get(str(target_level_id), {})
+	if not level_tasks is Dictionary:
+		return {"status": "locked", "stage": "find"}
+
+	var progress: Variant = level_tasks.get(str(task_id), {"status": "locked", "stage": "find"})
+	if progress is Dictionary:
+		return progress.duplicate(true)
+	return {"status": "locked", "stage": "find"}
+
+
+func set_task_progress(target_level_id: int, task_id: int, progress: Dictionary) -> void:
+	var level_key := str(target_level_id)
+	var level_tasks: Dictionary = task_progress.get(level_key, {})
+	level_tasks[str(task_id)] = progress.duplicate(true)
+	task_progress[level_key] = level_tasks
+	task_progress_changed.emit(target_level_id, task_id, progress.duplicate(true))
 
 
 func add_xp(amount: int) -> void:
